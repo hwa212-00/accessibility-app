@@ -12,39 +12,39 @@
     </header>
 
     <main id="main-content">
-        <section id="home" class="tab-content active">
+        <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
             <h2>홈 탭</h2>
             <p>접근성 100% 예시 페이지입니다.</p>
         </section>
         
-        <section id="category" class="tab-content">
+        <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0">
             <h2>카테고리 탭</h2>
             <p>다양한 UI 예제를 모아둔 곳입니다.</p>
         </section>
 
-        <section id="shorts" class="tab-content">
+        <section id="shorts" role="tabpanel" aria-labelledby="tab-shorts" class="tab-content" tabindex="0">
             <h2>쇼츠 탭</h2>
             <p>세로형 영상 접근성 예제입니다.</p>
         </section>
 
-        <section id="search" class="tab-content">
+        <section id="search" role="tabpanel" aria-labelledby="tab-search" class="tab-content" tabindex="0">
             <h2>검색 탭</h2>
             <p>검색창 접근성 예제입니다.</p>
         </section>
 
-        <section id="settings" class="tab-content">
+        <section id="settings" role="tabpanel" aria-labelledby="tab-settings" class="tab-content" tabindex="0">
             <h2>설정 탭</h2>
             <p>회원가입/로그인 및 설정입니다.</p>
         </section>
     </main>
 
-    <nav class="bottom-nav">
-        <button onclick="changeTab('home')" class="nav-btn active">홈</button>
-        <button onclick="changeTab('category')" class="nav-btn">카테고리</button>
-        <button onclick="changeTab('shorts')" class="nav-btn">쇼츠</button>
-        <button onclick="changeTab('search')" class="nav-btn">검색</button>
-        <button onclick="changeTab('settings')" class="nav-btn">설정</button>
-    </nav>
+    <div role="tablist" aria-label="메인 탭 메뉴" class="bottom-nav">
+        <button role="tab" aria-selected="true" aria-controls="home" id="tab-home" tabindex="0" class="nav-btn active">홈</button>
+        <button role="tab" aria-selected="false" aria-controls="category" id="tab-category" tabindex="-1" class="nav-btn">카테고리</button>
+        <button role="tab" aria-selected="false" aria-controls="shorts" id="tab-shorts" tabindex="-1" class="nav-btn">쇼츠</button>
+        <button role="tab" aria-selected="false" aria-controls="search" id="tab-search" tabindex="-1" class="nav-btn">검색</button>
+        <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn">설정</button>
+    </div>
 
     <script src="app.js"></script>
 </body>

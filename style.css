@@ -39,7 +39,7 @@ header {
     border-top: 1px solid #ccc;
 }
 
-/* 메뉴 버튼 디자인 (접근성: 최소 터치 크기 44px 이상) */
+/* 메뉴 버튼 디자인 (최소 터치 크기 48px 확보) */
 .nav-btn {
     flex: 1;
     padding: 15px 0;
@@ -50,12 +50,14 @@ header {
     min-height: 48px; 
 }
 
-/* 선택된 버튼 강조 및 키보드 포커스 명확히 하기 */
-.nav-btn.active {
+/* 선택된 버튼 강조 및 접근성 상태 반영 */
+.nav-btn.active,
+.nav-btn[aria-selected="true"] {
     font-weight: bold;
     color: #0056b3;
 }
 
+/* 키보드 이동 시 포커스 명확히 보이기 */
 .nav-btn:focus-visible {
     outline: 3px solid #0056b3;
     outline-offset: -3px;
