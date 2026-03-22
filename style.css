@@ -1,0 +1,62 @@
+/* 기본 여백 없애기 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    padding-bottom: 60px; /* 하단바 높이만큼 공간 확보 */
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* 탭 내용 기본으로 숨기기 */
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+/* active 클래스가 붙으면 보이기 */
+.tab-content.active {
+    display: block;
+}
+
+/* 하단 네비게이션 바 고정 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+}
+
+/* 메뉴 버튼 디자인 (접근성: 최소 터치 크기 44px 이상) */
+.nav-btn {
+    flex: 1;
+    padding: 15px 0;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+    min-height: 48px; 
+}
+
+/* 선택된 버튼 강조 및 키보드 포커스 명확히 하기 */
+.nav-btn.active {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.nav-btn:focus-visible {
+    outline: 3px solid #0056b3;
+    outline-offset: -3px;
+}
