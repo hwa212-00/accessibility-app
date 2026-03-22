@@ -6,7 +6,7 @@
 
 body {
     font-family: sans-serif;
-    padding-bottom: 70px; /* 아이콘 추가로 더 높아진 하단바 공간 확보 */
+    padding-bottom: 60px; 
 }
 
 header {
@@ -33,10 +33,9 @@ header {
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #ccc;
-    height: 65px; /* 하단바 높이 고정 */
+    height: 65px; 
 }
 
-/* 탭 버튼 디자인: 아이콘과 텍스트가 세로로 배치되도록 flex 사용 */
 .nav-btn {
     flex: 1;
     display: flex;
@@ -46,63 +45,55 @@ header {
     border: none;
     background: none;
     cursor: pointer;
-    color: #555; /* 평소 색상 */
+    color: #666; /* 평소 텍스트 색상 */
     padding: 5px 0;
 }
 
-/* 아이콘 기본 스타일 */
+/* --- [핵심 수정] 아이콘 웹/모바일 고정 사이즈 방어 --- */
 .nav-btn svg {
-    width: 26px;  /* 아이콘 크기 */
-    height: 26px;
+    width: 24px;  /* 모바일에 딱 좋은 터치 기준 사이즈 */
+    height: 24px;
+    flex-shrink: 0; /* PC 등 넓은 화면에서 찌그러지거나 커지는 것 방지 */
     margin-bottom: 3px;
-    transition: transform 0.1s ease; /* 약간의 움직임 효과 */
 }
 
-/* 기본적으로 면 아이콘은 숨김 */
-.icon-filled {
-    display: none;
-}
-
-/* 기본적으로 선 아이콘은 보임 */
-.icon-outline {
-    display: block;
-}
-
-/* 탭 텍스트 라벨 스타일 */
 .tab-label {
     font-size: 11px;
     font-weight: normal;
 }
 
-/* --- 선택된 탭 [접근성 속성 활용] --- */
-.nav-btn[aria-selected="true"] {
-    color: #000; /* 선택된 탭 텍스트/아이콘 색상 (검정) */
+/* 1. 평소 상태: 선 아이콘 보이고 면 아이콘 숨김 */
+.icon-outline {
+    display: block;
 }
-
-/* 선택된 탭: 선 아이콘 숨기기 */
-.nav-btn[aria-selected="true"] .icon-outline {
+.icon-filled {
     display: none;
 }
 
-/* 선택된 탭: 면 아이콘 보이기 (면색은 검정) */
-.nav-btn[aria-selected="true"] .icon-filled {
-    display: block;
-    fill: #000; /* 면 색상 검정 */
+/* 2. 선택된 상태: 선 숨기고 면 보이기 + 색상 검정 */
+.nav-btn[aria-selected="true"] {
+    color: #000; 
 }
 
-/* 선택된 탭 텍스트 굵게 */
+.nav-btn[aria-selected="true"] .icon-outline {
+    display: none; 
+}
+
+.nav-btn[aria-selected="true"] .icon-filled {
+    display: block; 
+}
+
 .nav-btn[aria-selected="true"] .tab-label {
     font-weight: bold;
 }
 
-/* 키보드 포커스 명확히 */
 .nav-btn:focus-visible {
     outline: 3px solid #0056b3;
     outline-offset: -3px;
     border-radius: 5px;
 }
 
-/* --- 로그인 폼 (기존 유지) --- */
+/* 로그인 폼 */
 .input-group { margin-bottom: 15px; margin-top: 10px;}
 label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;}
 input { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;}
