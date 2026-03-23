@@ -7,16 +7,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-nav">본문 바로가기</a>
+
     <header>
         <h1>A11y App</h1>
     </header>
 
-    <main id="main-content">
-        <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
-            <h2>홈 탭</h2>
-            <p>접근성 100% 예시 페이지입니다.</p>
-        </section>
+    <main id="main-content" tabindex="-1">
         
+        <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
+            <div class="hero-section">
+                <h2>환영합니다!<br>접근성 마스터 앱</h2>
+                <img src="https://via.placeholder.com/400x150.png?text=Welcome+Illustration" alt="스마트폰 접근성 기능을 시연하는 일러스트" class="hero-img">
+            </div>
+
+            <div class="quick-links">
+                <h3>빠른 예제 이동</h3>
+                <div class="card-grid">
+                    <button class="quick-card" onclick="document.getElementById('tab-category').click()">
+                        <span class="card-title">카테고리 예제</span>
+                        <span class="card-desc">팝업, 드롭다운 등</span>
+                    </button>
+                    <button class="quick-card" onclick="document.getElementById('tab-shorts').click()">
+                        <span class="card-title">쇼츠 접근성</span>
+                        <span class="card-desc">스와이프 영상 피드</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="daily-tip">
+                <h3>오늘의 접근성 팁</h3>
+                <blockquote>
+                    "모든 의미 있는 이미지에는 반드시 알맞은 <strong>대체 텍스트(alt)</strong>를 제공해야 합니다."
+                </blockquote>
+            </div>
+        </section>
         <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0">
             <h2>카테고리 탭</h2>
             <p>다양한 UI 예제를 모아둔 곳입니다.</p>
@@ -51,62 +76,32 @@
 
     <div role="tablist" aria-label="메인 탭 메뉴" class="bottom-nav">
         <button role="tab" aria-selected="true" aria-controls="home" id="tab-home" tabindex="0" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
-                <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.432z" />
-            </svg>
+            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" /><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.432z" /></svg>
             <span class="tab-label">홈</span>
         </button>
 
         <button role="tab" aria-selected="false" aria-controls="category" id="tab-category" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000">
-                <rect x="4" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <rect x="14" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <rect x="4" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <rect x="14" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
-                <rect x="3" y="3" width="8" height="8" rx="2" />
-                <rect x="13" y="3" width="8" height="8" rx="2" />
-                <rect x="3" y="13" width="8" height="8" rx="2" />
-                <rect x="13" y="13" width="8" height="8" rx="2" />
-            </svg>
+            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><rect x="4" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><rect x="3" y="3" width="8" height="8" rx="2" /><rect x="13" y="3" width="8" height="8" rx="2" /><rect x="3" y="13" width="8" height="8" rx="2" /><rect x="13" y="13" width="8" height="8" rx="2" /></svg>
             <span class="tab-label">카테고리</span>
         </button>
 
         <button role="tab" aria-selected="false" aria-controls="shorts" id="tab-shorts" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
-                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd" />
-            </svg>
+            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd" /></svg>
             <span class="tab-label">쇼츠</span>
         </button>
 
         <button role="tab" aria-selected="false" aria-controls="search" id="tab-search" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
-                <path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 105.262 15.176l4.652 4.652a1.25 1.25 0 001.768-1.768l-4.652-4.652A8.5 8.5 0 0010.5 2z" clip-rule="evenodd" />
-            </svg>
+            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 105.262 15.176l4.652 4.652a1.25 1.25 0 001.768-1.768l-4.652-4.652A8.5 8.5 0 0010.5 2z" clip-rule="evenodd" /></svg>
             <span class="tab-label">검색</span>
         </button>
 
         <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
+            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             <span class="tab-label">설정</span>
         </button>
     </div>

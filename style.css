@@ -9,6 +9,23 @@ body {
     padding-bottom: 60px; 
 }
 
+/* --- [접근성 핵심] 본문 건너뛰기 숨김 처리 및 포커스 시 노출 --- */
+.skip-nav {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 10px 15px;
+    z-index: 999;
+    text-decoration: none;
+    font-weight: bold;
+}
+.skip-nav:focus {
+    top: 0;
+}
+
+/* 기본 레이아웃 */
 header {
     background-color: #333;
     color: white;
@@ -16,15 +33,89 @@ header {
     padding: 15px;
 }
 
+#main-content:focus {
+    outline: none; /* 클릭 시 테두리 생기는 것 방지 (키보드 탭으로 올 때만 스크린 리더가 읽어줌) */
+}
+
 .tab-content {
     display: none;
     padding: 20px;
 }
-
 .tab-content.active {
     display: block;
 }
 
+/* === 홈 탭 전용 스타일 === */
+.hero-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.hero-section h2 {
+    font-size: 20px;
+    line-height: 1.4;
+    color: #222;
+    margin-bottom: 15px;
+}
+.hero-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    height: auto;
+}
+
+.quick-links h3, .daily-tip h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+/* 빠른 바로가기 카드 영역 (최소 터치 크기 확보) */
+.card-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+.quick-card {
+    flex: 1;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: left;
+    min-height: 48px; /* 모바일 접근성 최소 터치 크기 */
+    cursor: pointer;
+}
+.quick-card:focus-visible {
+    outline: 3px solid #0056b3;
+    outline-offset: -1px;
+}
+.card-title {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 6px;
+}
+.card-desc {
+    display: block;
+    font-size: 12px;
+    color: #555;
+}
+
+/* 오늘의 접근성 팁 */
+.daily-tip {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #0056b3;
+}
+.daily-tip blockquote {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* === 하단 네비게이션 및 기타 스타일 (기존 유지) === */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -35,7 +126,6 @@ header {
     border-top: 1px solid #ccc;
     height: 65px; 
 }
-
 .nav-btn {
     flex: 1;
     display: flex;
@@ -48,48 +138,29 @@ header {
     color: #666; 
     padding: 5px 0;
 }
-
 .nav-btn svg {
     width: 24px;  
     height: 24px;
     flex-shrink: 0; 
     margin-bottom: 3px;
 }
-
 .tab-label {
     font-size: 11px;
     font-weight: normal;
 }
-
-.icon-outline {
-    display: block;
-}
-.icon-filled {
-    display: none;
-}
-
-.nav-btn[aria-selected="true"] {
-    color: #000; 
-}
-
-.nav-btn[aria-selected="true"] .icon-outline {
-    display: none; 
-}
-
-.nav-btn[aria-selected="true"] .icon-filled {
-    display: block; 
-}
-
-.nav-btn[aria-selected="true"] .tab-label {
-    font-weight: bold;
-}
-
+.icon-outline { display: block; }
+.icon-filled { display: none; }
+.nav-btn[aria-selected="true"] { color: #000; }
+.nav-btn[aria-selected="true"] .icon-outline { display: none; }
+.nav-btn[aria-selected="true"] .icon-filled { display: block; }
+.nav-btn[aria-selected="true"] .tab-label { font-weight: bold; }
 .nav-btn:focus-visible {
     outline: 3px solid #0056b3;
     outline-offset: -3px;
     border-radius: 5px;
 }
 
+/* 로그인 폼 */
 .input-group { margin-bottom: 15px; margin-top: 10px;}
 label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;}
 input { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;}
