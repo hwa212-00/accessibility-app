@@ -30,7 +30,19 @@ tabs.forEach((tab, index) => {
 function changeTab(e) {
     const targetTab = e.currentTarget;
     const targetPanelId = targetTab.getAttribute('aria-controls');
+    
+    // 탭 이름 가져오기 (예: '카테고리', '쇼츠' 등)
+    const tabName = targetTab.querySelector('.tab-label').textContent;
+    const headerTitleArea = document.getElementById('header-title');
 
+    // [핵심 로직] 홈 탭이면 로고를, 아니면 탭 이름을 헤더에 표시!
+    if (targetPanelId === 'home') {
+        headerTitleArea.innerHTML = `<a href="#home" class="logo" onclick="document.getElementById('tab-home').click(); return false;">HWA</a>`;
+    } else {
+        headerTitleArea.innerHTML = tabName;
+    }
+
+    // 기존 탭 전환 로직
     tabs.forEach(t => {
         t.setAttribute('aria-selected', "false");
         t.setAttribute('tabindex', -1); 
