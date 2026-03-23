@@ -45,15 +45,14 @@ header {
     border: none;
     background: none;
     cursor: pointer;
-    color: #666; /* 평소 텍스트 색상 */
+    color: #666; 
     padding: 5px 0;
 }
 
-/* --- [핵심 수정] 아이콘 웹/모바일 고정 사이즈 방어 --- */
 .nav-btn svg {
-    width: 24px;  /* 모바일에 딱 좋은 터치 기준 사이즈 */
+    width: 24px;  
     height: 24px;
-    flex-shrink: 0; /* PC 등 넓은 화면에서 찌그러지거나 커지는 것 방지 */
+    flex-shrink: 0; 
     margin-bottom: 3px;
 }
 
@@ -62,7 +61,6 @@ header {
     font-weight: normal;
 }
 
-/* 1. 평소 상태: 선 아이콘 보이고 면 아이콘 숨김 */
 .icon-outline {
     display: block;
 }
@@ -70,7 +68,6 @@ header {
     display: none;
 }
 
-/* 2. 선택된 상태: 선 숨기고 면 보이기 + 색상 검정 */
 .nav-btn[aria-selected="true"] {
     color: #000; 
 }
@@ -93,7 +90,6 @@ header {
     border-radius: 5px;
 }
 
-/* 로그인 폼 */
 .input-group { margin-bottom: 15px; margin-top: 10px;}
 label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px;}
 input { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;}
