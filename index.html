@@ -31,19 +31,49 @@
 
     <main id="main-content" tabindex="-1">
         <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
-            <div class="hero-section">
-                <h2>환영합니다!<br>접근성 마스터 앱</h2>
-                <img src="https://via.placeholder.com/400x150.png?text=Welcome+Illustration" alt="스마트폰 접근성 기능을 시연하는 일러스트" class="hero-img">
+            
+            <div class="carousel-section" role="region" aria-roledescription="carousel" aria-label="웹 접근성 캠페인 배너">
+                <div class="carousel-inner" id="carousel-track" aria-live="off">
+                    
+                    <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="1 / 5">
+                        <img src="images/banner1.png" alt="[HWA 프로젝트] 모두를 위한 열린 접근성. 장애 유형에 관계없이 누구나 쉽게 이용할 수 있는 웹 서비스를 제공합니다. 배경에는 세 사람이 손을 잡고 연결된 일러스트가 있습니다.">
+                    </div>
+
+                    <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="2 / 5">
+                        <img src="images/banner2.png" alt="[시각 접근성 지원] 화면 낭독기로 모든 정보를 들으세요. 스크린 리더를 통해 텍스트·이미지 설명을 음성으로 제공합니다. 옆에는 눈과 스피커 아이콘이 소리를 내는 일러스트가 있습니다.">
+                    </div>
+
+                    <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="3 / 5">
+                        <img src="images/banner3.png" alt="[청각 장애인 서비스] 수어 통역으로 소통의 벽을 허물다. 수어 통역 영상과 자막을 통해 청각 장애인도 쉽게 정보를 이용할 수 있습니다. 옆에는 두 손으로 수어하는 일러스트 위에 '수어 통역'이라고 적힌 말풍선이 있습니다.">
+                    </div>
+
+                    <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="4 / 5">
+                        <img src="images/banner4.png" alt="[쉬운 언어 서비스] 복잡한 정보도 쉽게 이해하세요. 어려운 용어와 긴 문장을 누구나 이해하기 쉬운 언어로 변환하여 제공합니다. 옆에는 펼쳐진 책 일러스트 위로 '쉬운 언어'가 '이해하기 쉽게'로 변환됨을 나타내는 말풍선이 있습니다.">
+                    </div>
+
+                    <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="5 / 5">
+                        <img src="images/banner5.png" alt="[키보드 접근성 지원] 키보드 하나로 어디든 자유롭게. 마우스 없이도 키보드만으로 모든 기능을 탐색하고 이용할 수 있습니다. 옆에는 Tab 키와 상하좌우 화살표 방향키가 강조된 키보드 일러스트가 있습니다.">
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="control-btn" id="carousel-prev" aria-label="이전 슬라이드">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button class="control-btn" id="carousel-pause" aria-label="자동 재생 정지">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </button>
+                    <button class="control-btn" id="carousel-next" aria-label="다음 슬라이드">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                </div>
             </div>
+
             <div class="quick-links">
                 <h3>빠른 예제 이동</h3>
                 <div class="card-grid">
-                    <button class="quick-card" onclick="document.getElementById('tab-category').click()">
-                        <span class="card-title">카테고리 예제</span><span class="card-desc">팝업, 드롭다운 등</span>
-                    </button>
-                    <button class="quick-card" onclick="document.getElementById('tab-shorts').click()">
-                        <span class="card-title">쇼츠 접근성</span><span class="card-desc">스와이프 영상 피드</span>
-                    </button>
+                    <button class="quick-card" onclick="document.getElementById('tab-category').click()"><span class="card-title">카테고리 예제</span><span class="card-desc">팝업, 드롭다운 등</span></button>
+                    <button class="quick-card" onclick="document.getElementById('tab-shorts').click()"><span class="card-title">쇼츠 접근성</span><span class="card-desc">스와이프 영상 피드</span></button>
                 </div>
             </div>
             <div class="daily-tip">
@@ -55,19 +85,11 @@
         <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0"><h2>카테고리 탭</h2></section>
         <section id="shorts" role="tabpanel" aria-labelledby="tab-shorts" class="tab-content" tabindex="0"><h2>쇼츠 탭</h2></section>
         <section id="search" role="tabpanel" aria-labelledby="tab-search" class="tab-content" tabindex="0"><h2>검색 탭</h2></section>
-        
         <section id="settings" role="tabpanel" aria-labelledby="tab-settings" class="tab-content" tabindex="0">
             <h2>설정 및 로그인</h2>
             <form id="login-form" novalidate>
-                <div class="input-group">
-                    <label for="user-email">이메일</label>
-                    <input type="email" id="user-email" aria-describedby="email-error" required>
-                    <span id="email-error" class="error-text" role="alert" hidden>이메일 형식(@ 포함)에 맞게 입력해주세요.</span>
-                </div>
-                <div class="input-group">
-                    <label for="user-pw">비밀번호</label>
-                    <input type="password" id="user-pw" required>
-                </div>
+                <div class="input-group"><label for="user-email">이메일</label><input type="email" id="user-email" aria-describedby="email-error" required><span id="email-error" class="error-text" role="alert" hidden>이메일 형식(@ 포함)에 맞게 입력해주세요.</span></div>
+                <div class="input-group"><label for="user-pw">비밀번호</label><input type="password" id="user-pw" required></div>
                 <button type="submit" class="submit-btn">로그인</button>
             </form>
         </section>
@@ -78,16 +100,14 @@
         <button role="tab" aria-selected="false" aria-controls="category" id="tab-category" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><rect x="4" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><rect x="3" y="3" width="8" height="8" rx="2" /><rect x="13" y="3" width="8" height="8" rx="2" /><rect x="3" y="13" width="8" height="8" rx="2" /><rect x="13" y="13" width="8" height="8" rx="2" /></svg><span class="tab-label">카테고리</span></button>
         <button role="tab" aria-selected="false" aria-controls="shorts" id="tab-shorts" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd" /></svg><span class="tab-label">쇼츠</span></button>
         <button role="tab" aria-selected="false" aria-controls="search" id="tab-search" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 105.262 15.176l4.652 4.652a1.25 1.25 0 001.768-1.768l-4.652-4.652A8.5 8.5 0 0010.5 2z" clip-rule="evenodd" /></svg><span class="tab-label">검색</span></button>
-        <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="tab-label">설정</span></button>
+        <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 -3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 -3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="tab-label">설정</span></button>
     </div>
 
     <div id="noti-modal" class="modal-overlay" aria-hidden="true">
         <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title">
             <div class="modal-header">
                 <h2 id="noti-title" class="modal-title">알림</h2>
-                <button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
+                <button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
             </div>
             <div class="modal-body">
                 <ul class="noti-list">
@@ -114,7 +134,6 @@
             </div>
         </div>
     </div>
-
     <div id="detail-popup" class="popup-overlay" aria-hidden="true">
         <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popup-title">
             <h3 id="popup-title">알림 상세 내용</h3>
