@@ -1,4 +1,3 @@
-// --- 기존 하단 탭 로직 ---
 const tabs = document.querySelectorAll('[role="tab"]');
 const tabList = document.querySelector('[role="tablist"]');
 let tabFocus = 0; 
@@ -37,7 +36,6 @@ function changeTab(e) {
     document.getElementById(targetPanelId).classList.add('active');
 }
 
-// --- 기존 로그인 폼 로직 ---
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('user-email');
 const emailError = document.getElementById('email-error');
@@ -57,35 +55,30 @@ if(loginForm) {
     });
 }
 
-// === [추가됨] 알림 모달창 접근성 제어 로직 ===
+// === [수정됨] 알림 팝업 및 완벽한 초점 트랩 (Focus Trap) 로직 ===
 const notiBtn = document.getElementById('noti-btn');
 const notiModal = document.getElementById('noti-modal');
 const closeBtn = document.getElementById('noti-close-btn');
-let lastFocusedElement; // 모달이 닫힐 때 포커스를 되돌려줄 이전 요소를 기억할 변수
+let lastFocusedElement; 
 
 function openModal() {
-    lastFocusedElement = document.activeElement; // 모달을 연 버튼 기억해두기
+    lastFocusedElement = document.activeElement; 
     notiModal.classList.add('active');
     
-    // 접근성 속성 업데이트
     notiModal.setAttribute('aria-hidden', 'false');
     notiBtn.setAttribute('aria-expanded', 'true');
-    
-    // 모달이 열리면 포커스를 내부 닫기 버튼으로 즉시 이동 (KWCAG 필수)
     closeBtn.focus(); 
     
-    // 🚧 수칙 4번 적용: 배포 전 삭제 리마인드
-    console.log('[Dev] 알림 모달이 열렸습니다. 작업이 끝나면 이 console.log를 꼭 지워주세요!');
+    // 🚧 배포 전 삭제 리마인드
+    console.log('[Dev] 알림 팝업이 열렸습니다. 작업이 끝나면 이 console.log를 꼭 지워주세요!');
 }
 
 function closeModal() {
     notiModal.classList.remove('active');
     
-    // 접근성 속성 원래대로 복구
     notiModal.setAttribute('aria-hidden', 'true');
     notiBtn.setAttribute('aria-expanded', 'false');
     
-    // 모달 닫히면 원래 있던 종 모양 버튼으로 포커스 복귀 (KWCAG 필수)
     if(lastFocusedElement) {
         lastFocusedElement.focus();
     }
@@ -94,16 +87,38 @@ function closeModal() {
 if(notiBtn) notiBtn.addEventListener('click', openModal);
 if(closeBtn) closeBtn.addEventListener('click', closeModal);
 
-// 모달 바깥 어두운 영역(Dimmed) 클릭 시 닫기
 window.addEventListener('click', (e) => {
     if (e.target === notiModal) {
         closeModal();
     }
 });
 
-// 키보드 ESC 키 누르면 닫기 (키보드 접근성 필수)
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && notiModal.classList.contains('active')) {
+// 키보드 제어: ESC 닫기 & Focus Trap (초점 가두기)
+notiModal.addEventListener('keydown', function(e) {
+    // ESC 닫기
+    if (e.key === 'Escape') {
         closeModal();
+        return;
+    }
+
+    // Tab 키 초점 트랩 로직
+    const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+    if (!isTabPressed) return;
+
+    // 팝업 안에서 초점을 받을 수 있는 모든 요소 찾기
+    const focusableElements = notiModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (e.shiftKey) { // Shift + Tab 누를 때
+        if (document.activeElement === firstElement) {
+            lastElement.focus(); // 첫 요소면 마지막으로 보냄
+            e.preventDefault();
+        }
+    } else { // Tab 누를 때
+        if (document.activeElement === lastElement) {
+            firstElement.focus(); // 마지막 요소면 처음으로 보냄
+            e.preventDefault();
+        }
     }
 });
