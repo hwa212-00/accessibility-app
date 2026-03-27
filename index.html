@@ -16,7 +16,7 @@
             </h1>
             
             <div class="header-utils">
-                <button class="icon-btn" aria-label="새 알림 3건">
+                <button class="icon-btn" id="noti-btn" aria-label="알림 확인하기" aria-expanded="false" aria-haspopup="dialog">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
@@ -59,21 +59,10 @@
             </div>
         </section>
         
-        <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0">
-            <h2>카테고리 탭</h2>
-            <p>다양한 UI 예제를 모아둔 곳입니다.</p>
-        </section>
-
-        <section id="shorts" role="tabpanel" aria-labelledby="tab-shorts" class="tab-content" tabindex="0">
-            <h2>쇼츠 탭</h2>
-            <p>세로형 영상 접근성 예제입니다.</p>
-        </section>
-
-        <section id="search" role="tabpanel" aria-labelledby="tab-search" class="tab-content" tabindex="0">
-            <h2>검색 탭</h2>
-            <p>검색창 접근성 예제입니다.</p>
-        </section>
-
+        <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0"><h2>카테고리 탭</h2><p>다양한 UI 예제를 모아둔 곳입니다.</p></section>
+        <section id="shorts" role="tabpanel" aria-labelledby="tab-shorts" class="tab-content" tabindex="0"><h2>쇼츠 탭</h2><p>세로형 영상 접근성 예제입니다.</p></section>
+        <section id="search" role="tabpanel" aria-labelledby="tab-search" class="tab-content" tabindex="0"><h2>검색 탭</h2><p>검색창 접근성 예제입니다.</p></section>
+        
         <section id="settings" role="tabpanel" aria-labelledby="tab-settings" class="tab-content" tabindex="0">
             <h2>설정 및 로그인</h2>
             <form id="login-form" novalidate>
@@ -92,35 +81,32 @@
     </main>
 
     <div role="tablist" aria-label="메인 탭 메뉴" class="bottom-nav">
-        <button role="tab" aria-selected="true" aria-controls="home" id="tab-home" tabindex="0" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" /><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.432z" /></svg>
-            <span class="tab-label">홈</span>
-        </button>
+        <button role="tab" aria-selected="true" aria-controls="home" id="tab-home" tabindex="0" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" /><path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.432z" /></svg><span class="tab-label">홈</span></button>
+        <button role="tab" aria-selected="false" aria-controls="category" id="tab-category" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><rect x="4" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><rect x="3" y="3" width="8" height="8" rx="2" /><rect x="13" y="3" width="8" height="8" rx="2" /><rect x="3" y="13" width="8" height="8" rx="2" /><rect x="13" y="13" width="8" height="8" rx="2" /></svg><span class="tab-label">카테고리</span></button>
+        <button role="tab" aria-selected="false" aria-controls="shorts" id="tab-shorts" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd" /></svg><span class="tab-label">쇼츠</span></button>
+        <button role="tab" aria-selected="false" aria-controls="search" id="tab-search" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 105.262 15.176l4.652 4.652a1.25 1.25 0 001.768-1.768l-4.652-4.652A8.5 8.5 0 0010.5 2z" clip-rule="evenodd" /></svg><span class="tab-label">검색</span></button>
+        <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="tab-label">설정</span></button>
+    </div>
 
-        <button role="tab" aria-selected="false" aria-controls="category" id="tab-category" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><rect x="4" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="4" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="4" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="14" width="6" height="6" rx="1.5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><rect x="3" y="3" width="8" height="8" rx="2" /><rect x="13" y="3" width="8" height="8" rx="2" /><rect x="3" y="13" width="8" height="8" rx="2" /><rect x="13" y="13" width="8" height="8" rx="2" /></svg>
-            <span class="tab-label">카테고리</span>
-        </button>
-
-        <button role="tab" aria-selected="false" aria-controls="shorts" id="tab-shorts" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clip-rule="evenodd" /></svg>
-            <span class="tab-label">쇼츠</span>
-        </button>
-
-        <button role="tab" aria-selected="false" aria-controls="search" id="tab-search" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000"><path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 105.262 15.176l4.652 4.652a1.25 1.25 0 001.768-1.768l-4.652-4.652A8.5 8.5 0 0010.5 2z" clip-rule="evenodd" /></svg>
-            <span class="tab-label">검색</span>
-        </button>
-
-        <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn">
-            <svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            <svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            <span class="tab-label">설정</span>
-        </button>
+    <div id="noti-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title">
+            <div class="modal-header">
+                <h2 id="noti-title" class="modal-title">알림</h2>
+                <button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="empty-state">
+                    <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#ccc">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <p>새로운 알림이 없습니다.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
