@@ -35,7 +35,7 @@ if(loginForm) {
     });
 }
 
-// === [공통] 강력한 포커스 트랩(초점 가두기) 함수 ===
+// === 공통: 포커스 트랩(초점 가두기) 함수 ===
 function trapFocus(element, event) {
     const isTabPressed = event.key === 'Tab' || event.keyCode === 9;
     if (!isTabPressed) return;
@@ -46,12 +46,12 @@ function trapFocus(element, event) {
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
-    if (event.shiftKey) { // Shift + Tab
+    if (event.shiftKey) { 
         if (document.activeElement === firstElement) {
             lastElement.focus();
             event.preventDefault();
         }
-    } else { // Tab
+    } else { 
         if (document.activeElement === lastElement) {
             firstElement.focus();
             event.preventDefault();
@@ -88,28 +88,44 @@ notiModal.addEventListener('keydown', (e) => {
     trapFocus(notiModal, e);
 });
 
-// === 상세 팝업 제어 (이중 모달) ===
+// === 상세 팝업 제어 및 상태 업데이트 로직 ===
 const detailPopup = document.getElementById('detail-popup');
 const popupCloseBtn = document.getElementById('popup-close-btn');
 const notiItems = document.querySelectorAll('.noti-item');
-let lastFocusedNotiItem; // 모달 안에서 눌렀던 특정 알림 버튼을 기억
+let lastFocusedNotiItem; 
 
 function openPopup() {
     detailPopup.classList.add('active');
     detailPopup.setAttribute('aria-hidden', 'false');
-    popupCloseBtn.focus(); // 팝업 안의 닫기 버튼으로 즉시 이동
+    popupCloseBtn.focus(); 
 }
 
 function closePopup() {
     detailPopup.classList.remove('active');
     detailPopup.setAttribute('aria-hidden', 'true');
-    if(lastFocusedNotiItem) lastFocusedNotiItem.focus(); // 팝업 닫히면 눌렀던 알림으로 초점 복귀
+    if(lastFocusedNotiItem) lastFocusedNotiItem.focus(); 
 }
 
-// 각 알림 항목을 누르면 팝업 열기
+// 각 알림 항목 클릭 이벤트
 notiItems.forEach(item => {
     item.addEventListener('click', (e) => {
         lastFocusedNotiItem = e.currentTarget;
+        
+        // [추가됨] 안 읽은 상태(unread)일 경우 실시간으로 읽음(read) 처리
+        if (lastFocusedNotiItem.classList.contains('unread')) {
+            // 1. 클래스 교체로 시각적 스타일(굵기, 색상) 변경
+            lastFocusedNotiItem.classList.remove('unread');
+            lastFocusedNotiItem.classList.add('read');
+            
+            // 2. 스크린 리더 텍스트를 '읽음'으로 교체
+            const srText = lastFocusedNotiItem.querySelector('.status-text');
+            if (srText) srText.textContent = '읽음';
+            
+            // 3. 레드닷 시각적 숨김 처리 (DOM 삭제 시 포커스 에러 방지)
+            const redDot = lastFocusedNotiItem.querySelector('.red-dot');
+            if (redDot) redDot.style.display = 'none';
+        }
+
         openPopup();
     });
 });
@@ -128,4 +144,4 @@ window.addEventListener('click', (e) => {
 });
 
 // 🚧 수칙 4번: 배포 전 리마인드
-console.log('[Dev] 보안 우선: Supabase 연동 시 RLS 설정 확인 요망. 알림 데이터 연동 완료 후 이 콘솔을 지워주세요.');
+console.log('[Dev] 보안 우선: RLS 적용 확인. 알림 읽음 처리 API 연동 후 이 콘솔을 지워주세요.');

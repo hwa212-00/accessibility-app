@@ -92,16 +92,22 @@
             <div class="modal-body">
                 <ul class="noti-list">
                     <li>
-                        <button class="noti-item unread">
+                        <button class="noti-item unread" aria-haspopup="dialog">
+                            <span class="sr-only status-text">읽지 않음</span>
                             <span class="red-dot" aria-hidden="true"></span>
-                            <span class="noti-text">새로운 접근성 가이드가 업데이트 되었습니다.</span>
-                            <span class="sr-only">읽지 않음</span>
+                            <div class="noti-content">
+                                <span class="noti-text">새로운 접근성 가이드가 업데이트 되었습니다.</span>
+                                <span class="noti-time">방금 전</span>
+                            </div>
                         </button>
                     </li>
                     <li>
-                        <button class="noti-item read">
-                            <span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span>
-                            <span class="sr-only">읽음</span>
+                        <button class="noti-item read" aria-haspopup="dialog">
+                            <span class="sr-only status-text">읽음</span>
+                            <div class="noti-content">
+                                <span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span>
+                                <span class="noti-time">2026. 03. 27</span>
+                            </div>
                         </button>
                     </li>
                 </ul>
