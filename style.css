@@ -17,17 +17,15 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* === [추가됨] KWCAG 상단 탭 및 2뎁스 패널 스타일 === */
+/* KWCAG 상단 탭 (네모 형태) 및 2뎁스 패널 스타일 */
 .kwcag-section { margin-bottom: 25px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background-color: #fff; }
 .kwcag-tablist { display: flex; width: 100%; border-bottom: 1px solid #ddd; background-color: #f8f9fa; }
-.kwcag-tab { flex: 1; padding: 12px 0; min-height: 48px; background: none; border: none; font-size: 15px; color: #666; cursor: pointer; text-align: center; border-bottom: 3px solid transparent; transition: all 0.2s; }
-/* 선택된 탭 시각적 구분 (대비 명확히) */
+.kwcag-tab { flex: 1; padding: 12px 0; min-height: 48px; background: none; border: none; font-size: 15px; color: #666; cursor: pointer; text-align: center; border-bottom: 3px solid transparent; transition: all 0.2s; border-radius: 0; }
 .kwcag-tab[aria-selected="true"] { font-weight: bold; color: #0056b3; border-bottom: 3px solid #0056b3; background-color: #fff; }
 .kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -3px; background-color: rgba(0,86,179,0.1); }
 .kwcag-panel { padding: 15px; animation: fadeIn 0.3s ease-in-out; }
 .kwcag-panel[hidden] { display: none; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-/* 2-depth 리스트 스타일 */
 .guideline-list { list-style: none; margin: 0; padding: 0; }
 .guideline-list li { padding: 12px 10px; font-size: 15px; color: #333; border-bottom: 1px dashed #eee; font-weight: 500; }
 .guideline-list li:last-child { border-bottom: none; padding-bottom: 0; }

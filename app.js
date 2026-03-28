@@ -1,4 +1,4 @@
-// === [수정됨] 하단 메인 탭 로직 (선택자 분리 방어) ===
+// 하단 메인 탭 로직
 const mainTabs = document.querySelectorAll('.bottom-nav [role="tab"]');
 const tabList = document.querySelector('.bottom-nav');
 let tabFocus = 0; 
@@ -30,35 +30,43 @@ function changeMainTab(e) {
     if(panel) panel.classList.add('active');
 }
 
-// === [신규] 상단 KWCAG 4대 원칙 탭 로직 ===
+// === [수정됨] KWCAG 상단 탭 아코디언 토글 로직 ===
 const kwcagTabs = document.querySelectorAll('.kwcag-tab');
 kwcagTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
         const clickedTab = e.currentTarget;
+        const isExpanded = clickedTab.getAttribute('aria-expanded') === 'true'; // 현재 상태 확인
+        const targetPanelId = clickedTab.getAttribute('aria-controls');
+        const targetPanel = document.getElementById(targetPanelId);
         
-        // 1. 모든 KWCAG 탭 선택 해제 및 패널 숨김
+        // 1. 클릭될 때마다 일단 모든 탭과 패널을 무조건 닫음 리셋
         kwcagTabs.forEach(t => {
             t.setAttribute('aria-selected', 'false');
+            t.setAttribute('aria-expanded', 'false');
             t.setAttribute('tabindex', '-1');
             const panelId = t.getAttribute('aria-controls');
             const panel = document.getElementById(panelId);
             if (panel) panel.setAttribute('hidden', 'true');
         });
         
-        // 2. 클릭된 탭 활성화 및 패널 표시
-        clickedTab.setAttribute('aria-selected', 'true');
-        clickedTab.setAttribute('tabindex', '0');
-        const targetPanelId = clickedTab.getAttribute('aria-controls');
-        const targetPanel = document.getElementById(targetPanelId);
-        
-        if (targetPanel) {
-            targetPanel.removeAttribute('hidden');
+        // 2. 만약 방금 전까지 '닫혀있는 상태(!isExpanded)'였다면 열어줌
+        if (!isExpanded) {
+            clickedTab.setAttribute('aria-selected', 'true');
+            clickedTab.setAttribute('aria-expanded', 'true'); // 스크린 리더 토글!
+            clickedTab.setAttribute('tabindex', '0');
+            if (targetPanel) {
+                targetPanel.removeAttribute('hidden');
+            } else {
+                console.warn('[Dev Guard] 해당 탭의 패널이 존재하지 않습니다.');
+            }
         } else {
-            console.warn('[Dev Guard] 해당 탭의 콘텐츠 패널이 존재하지 않습니다.'); // 빈칸 이중 체크
+            // 이미 열려있어서 닫힌 경우, 키보드 초점이 날아가지 않도록 포커스만 유지
+            clickedTab.setAttribute('tabindex', '0');
         }
     });
 });
-// 탭 키보드 접근성 (좌우 방향키 이동)
+
+// 상단 탭 키보드 접근성 (방향키 이동 유지)
 const kwcagTablist = document.querySelector('.kwcag-tablist');
 let kwcagFocus = 0;
 if(kwcagTablist) {
@@ -71,7 +79,6 @@ if(kwcagTablist) {
         }
     });
 }
-
 
 // 로그인 폼
 const loginForm = document.getElementById('login-form');
@@ -119,7 +126,6 @@ if(notiBtn) notiBtn.addEventListener('click', openNoti);
 if(closeBtn) closeBtn.addEventListener('click', closeNoti);
 if(notiModal) notiModal.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeNoti(); return; } trapFocus(notiModal, e); });
 
-// 알림 상세 팝업
 const detailPopup = document.getElementById('detail-popup');
 const popupCloseBtn = document.getElementById('popup-close-btn');
 const notiItems = document.querySelectorAll('.noti-item');
@@ -205,6 +211,5 @@ if(carouselTrack && carouselItems.length > 0) {
     playCarousel();
 }
 
-// 🚧 수칙 4번 리마인드 🚧 
-// 배포 전 최종 테스트가 끝나면 아래의 console.log를 지워주세요!
-console.log('[Dev] KWCAG 상단 탭 구현 완료 및 기존 하단 탭 스크립트 분리 방어 완벽 적용. 배포 전 이 로그를 삭제하세요.');
+// 🚧 [수칙 4번 리마인드] 🚧
+console.log('[Dev] KWCAG 상단 탭 아코디언 토글 완료. 확인 후 이 console.log 라인을 반드시 지워주세요!');
