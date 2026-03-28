@@ -17,8 +17,18 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* === [필수] 이미지 404 대비 레이아웃 방어막 === */
-.carousel-section { position: relative; width: 100%; overflow: hidden; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background-color: #f5f5f5; }
+/* === [수정됨] 롤링 배너 가로 꽉 차게 변경 === */
+.carousel-section { 
+    position: relative; 
+    /* 부모의 안쪽 여백(좌우 20px씩 총 40px)을 무시하고 강제로 넓힙니다 */
+    width: calc(100% + 40px); 
+    margin-left: -20px; 
+    margin-bottom: 30px; 
+    overflow: hidden; 
+    /* 화면 끝에 닿으므로 둥근 모서리 제거 */
+    border-radius: 0; 
+    background-color: #f5f5f5; 
+}
 .carousel-inner { display: flex; transition: transform 0.4s ease-in-out; }
 .carousel-item { flex: 0 0 100%; padding: 0; position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .carousel-item img { width: 100%; height: 100%; object-fit: cover; display: block; color: #777; font-size: 13px; padding: 20px; text-align: center; }
