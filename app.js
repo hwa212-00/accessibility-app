@@ -30,16 +30,15 @@ function changeMainTab(e) {
     if(panel) panel.classList.add('active');
 }
 
-// === [수정됨] KWCAG 상단 탭 아코디언 토글 로직 ===
+// === KWCAG 상단 탭 아코디언 토글 & ESC 닫기 로직 ===
 const kwcagTabs = document.querySelectorAll('.kwcag-tab');
 kwcagTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
         const clickedTab = e.currentTarget;
-        const isExpanded = clickedTab.getAttribute('aria-expanded') === 'true'; // 현재 상태 확인
+        const isExpanded = clickedTab.getAttribute('aria-expanded') === 'true';
         const targetPanelId = clickedTab.getAttribute('aria-controls');
         const targetPanel = document.getElementById(targetPanelId);
         
-        // 1. 클릭될 때마다 일단 모든 탭과 패널을 무조건 닫음 리셋
         kwcagTabs.forEach(t => {
             t.setAttribute('aria-selected', 'false');
             t.setAttribute('aria-expanded', 'false');
@@ -49,10 +48,9 @@ kwcagTabs.forEach(tab => {
             if (panel) panel.setAttribute('hidden', 'true');
         });
         
-        // 2. 만약 방금 전까지 '닫혀있는 상태(!isExpanded)'였다면 열어줌
         if (!isExpanded) {
             clickedTab.setAttribute('aria-selected', 'true');
-            clickedTab.setAttribute('aria-expanded', 'true'); // 스크린 리더 토글!
+            clickedTab.setAttribute('aria-expanded', 'true');
             clickedTab.setAttribute('tabindex', '0');
             if (targetPanel) {
                 targetPanel.removeAttribute('hidden');
@@ -60,13 +58,27 @@ kwcagTabs.forEach(tab => {
                 console.warn('[Dev Guard] 해당 탭의 패널이 존재하지 않습니다.');
             }
         } else {
-            // 이미 열려있어서 닫힌 경우, 키보드 초점이 날아가지 않도록 포커스만 유지
             clickedTab.setAttribute('tabindex', '0');
         }
     });
 });
 
-// 상단 탭 키보드 접근성 (방향키 이동 유지)
+// ESC 키를 누르면 열려있는 2뎁스 모달을 닫는 방어 코드 (접근성 필수)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        kwcagTabs.forEach(t => {
+            if (t.getAttribute('aria-expanded') === 'true') {
+                t.setAttribute('aria-expanded', 'false');
+                t.setAttribute('aria-selected', 'false');
+                const panel = document.getElementById(t.getAttribute('aria-controls'));
+                if (panel) panel.setAttribute('hidden', 'true');
+                t.focus(); // 닫힌 후 초점을 다시 탭으로 돌려보냄
+            }
+        });
+    }
+});
+
+// 상단 탭 키보드 접근성 (방향키 이동)
 const kwcagTablist = document.querySelector('.kwcag-tablist');
 let kwcagFocus = 0;
 if(kwcagTablist) {
@@ -212,4 +224,4 @@ if(carouselTrack && carouselItems.length > 0) {
 }
 
 // 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] KWCAG 상단 탭 아코디언 토글 완료. 확인 후 이 console.log 라인을 반드시 지워주세요!');
+console.log('[Dev] KWCAG 모달형 탭 설계 및 초점 이동(a 태그) 구현 완료. 반드시 배포 전 이 줄을 삭제하세요.');

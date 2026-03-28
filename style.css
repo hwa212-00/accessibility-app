@@ -17,22 +17,29 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* KWCAG 상단 탭 (네모 형태) 및 2뎁스 패널 스타일 */
-.kwcag-section { margin-bottom: 25px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background-color: #fff; }
-.kwcag-tablist { display: flex; width: 100%; border-bottom: 1px solid #ddd; background-color: #f8f9fa; }
-.kwcag-tab { flex: 1; padding: 12px 0; min-height: 48px; background: none; border: none; font-size: 15px; color: #666; cursor: pointer; text-align: center; border-bottom: 3px solid transparent; transition: all 0.2s; border-radius: 0; }
-.kwcag-tab[aria-selected="true"] { font-weight: bold; color: #0056b3; border-bottom: 3px solid #0056b3; background-color: #fff; }
-.kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -3px; background-color: rgba(0,86,179,0.1); }
-.kwcag-panel { padding: 15px; animation: fadeIn 0.3s ease-in-out; }
+/* === [수정됨] KWCAG 상단 탭: 트렌디한 세그먼티드 컨트롤 스타일 === */
+.kwcag-section { margin-bottom: 25px; position: relative; z-index: 10; } /* 모달을 띄우기 위해 relative 추가, overflow 제거 */
+.kwcag-tablist { display: flex; width: 100%; background-color: #f0f0f5; border-radius: 12px; padding: 4px; }
+.kwcag-tab { flex: 1; padding: 10px 0; min-height: 48px; background: transparent; border: none; font-size: 15px; color: #333; cursor: pointer; text-align: center; border-radius: 8px; transition: all 0.2s ease; font-weight: 500; }
+/* 선택된 탭 시각적 구분 (명도 대비 극대화 및 입체감) */
+.kwcag-tab[aria-selected="true"] { font-weight: bold; color: #000; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
+
+/* 2뎁스: 떠오르는 모달창 디자인 */
+.kwcag-panel { position: absolute; top: calc(100% + 8px); left: 0; width: 100%; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 50; padding: 10px; animation: popIn 0.2s ease-out; }
+@keyframes popIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 .kwcag-panel[hidden] { display: none; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-.guideline-list { list-style: none; margin: 0; padding: 0; }
-.guideline-list li { padding: 12px 10px; font-size: 15px; color: #333; border-bottom: 1px dashed #eee; font-weight: 500; }
-.guideline-list li:last-child { border-bottom: none; padding-bottom: 0; }
-.guideline-list li::before { content: "•"; color: #0056b3; font-weight: bold; margin-right: 8px; }
+
+/* 2뎁스 항목 링크 스타일 (초점 제공) */
+.guideline-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.guideline-list li { margin: 0; padding: 0; border: none; }
+.kwcag-link { display: block; padding: 14px 15px; font-size: 15px; color: #111; text-decoration: none; border-radius: 8px; font-weight: 500; transition: background 0.2s; }
+.kwcag-link:hover { background-color: #f8f9fa; }
+.kwcag-link:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; background-color: #f0f4ff; }
+.kwcag-link::before { content: "•"; color: #0056b3; font-weight: bold; margin-right: 8px; }
 
 /* 롤링 배너 가로 꽉 차게 */
-.carousel-section { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-bottom: 30px; overflow: hidden; border-radius: 0; background-color: #f5f5f5; }
+.carousel-section { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-bottom: 30px; overflow: hidden; border-radius: 0; background-color: #f5f5f5; z-index: 1;}
 .carousel-inner { display: flex; transition: transform 0.4s ease-in-out; }
 .carousel-item { flex: 0 0 100%; padding: 0; position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .carousel-item img { width: 100%; height: 100%; object-fit: cover; display: block; color: #777; font-size: 13px; padding: 20px; text-align: center; }
