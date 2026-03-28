@@ -1,34 +1,79 @@
-// === [필수] JS 에러 연쇄 붕괴 방어막 추가 ===
-const tabs = document.querySelectorAll('[role="tab"]');
-const tabList = document.querySelector('[role="tablist"]');
+// === [수정됨] 하단 메인 탭 로직 (선택자 분리 방어) ===
+const mainTabs = document.querySelectorAll('.bottom-nav [role="tab"]');
+const tabList = document.querySelector('.bottom-nav');
 let tabFocus = 0; 
 
 if(tabList) {
     tabList.addEventListener('keydown', (e) => {
         if (e.keyCode === 39 || e.keyCode === 37) {
-            tabs[tabFocus].setAttribute('tabindex', -1);
-            if (e.keyCode === 39) { tabFocus++; if (tabFocus >= tabs.length) tabFocus = 0; } 
-            else if (e.keyCode === 37) { tabFocus--; if (tabFocus < 0) tabFocus = tabs.length - 1; }
-            tabs[tabFocus].setAttribute('tabindex', 0); tabs[tabFocus].focus();
+            mainTabs[tabFocus].setAttribute('tabindex', -1);
+            if (e.keyCode === 39) { tabFocus++; if (tabFocus >= mainTabs.length) tabFocus = 0; } 
+            else if (e.keyCode === 37) { tabFocus--; if (tabFocus < 0) tabFocus = mainTabs.length - 1; }
+            mainTabs[tabFocus].setAttribute('tabindex', 0); mainTabs[tabFocus].focus();
         }
     });
 }
 
-tabs.forEach((tab, index) => { tab.addEventListener('click', (e) => { tabFocus = index; changeTab(e); }); });
-function changeTab(e) {
+mainTabs.forEach((tab, index) => { tab.addEventListener('click', (e) => { tabFocus = index; changeMainTab(e); }); });
+function changeMainTab(e) {
     const targetTab = e.currentTarget;
     const targetPanelId = targetTab.getAttribute('aria-controls');
     const headerTitleArea = document.getElementById('header-title');
     if (targetPanelId === 'home') { headerTitleArea.innerHTML = `<a href="#home" class="logo" onclick="document.getElementById('tab-home').click(); return false;">HWA</a>`; } 
     else { headerTitleArea.innerHTML = targetTab.querySelector('.tab-label').textContent; }
-    tabs.forEach(t => { t.setAttribute('aria-selected', "false"); t.setAttribute('tabindex', -1); });
-    document.querySelectorAll('[role="tabpanel"]').forEach(p => { p.classList.remove('active'); });
+    
+    mainTabs.forEach(t => { t.setAttribute('aria-selected', "false"); t.setAttribute('tabindex', -1); });
+    document.querySelectorAll('.tab-content').forEach(p => { p.classList.remove('active'); });
     targetTab.setAttribute('aria-selected', "true"); targetTab.setAttribute('tabindex', 0); 
     
     const panel = document.getElementById(targetPanelId);
     if(panel) panel.classList.add('active');
 }
 
+// === [신규] 상단 KWCAG 4대 원칙 탭 로직 ===
+const kwcagTabs = document.querySelectorAll('.kwcag-tab');
+kwcagTabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+        const clickedTab = e.currentTarget;
+        
+        // 1. 모든 KWCAG 탭 선택 해제 및 패널 숨김
+        kwcagTabs.forEach(t => {
+            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('tabindex', '-1');
+            const panelId = t.getAttribute('aria-controls');
+            const panel = document.getElementById(panelId);
+            if (panel) panel.setAttribute('hidden', 'true');
+        });
+        
+        // 2. 클릭된 탭 활성화 및 패널 표시
+        clickedTab.setAttribute('aria-selected', 'true');
+        clickedTab.setAttribute('tabindex', '0');
+        const targetPanelId = clickedTab.getAttribute('aria-controls');
+        const targetPanel = document.getElementById(targetPanelId);
+        
+        if (targetPanel) {
+            targetPanel.removeAttribute('hidden');
+        } else {
+            console.warn('[Dev Guard] 해당 탭의 콘텐츠 패널이 존재하지 않습니다.'); // 빈칸 이중 체크
+        }
+    });
+});
+// 탭 키보드 접근성 (좌우 방향키 이동)
+const kwcagTablist = document.querySelector('.kwcag-tablist');
+let kwcagFocus = 0;
+if(kwcagTablist) {
+    kwcagTablist.addEventListener('keydown', (e) => {
+        if (e.keyCode === 39 || e.keyCode === 37) {
+            kwcagTabs[kwcagFocus].setAttribute('tabindex', -1);
+            if (e.keyCode === 39) { kwcagFocus++; if (kwcagFocus >= kwcagTabs.length) kwcagFocus = 0; } 
+            else if (e.keyCode === 37) { kwcagFocus--; if (kwcagFocus < 0) kwcagFocus = kwcagTabs.length - 1; }
+            kwcagTabs[kwcagFocus].setAttribute('tabindex', 0); kwcagTabs[kwcagFocus].focus();
+        }
+    });
+}
+
+
+// 로그인 폼
 const loginForm = document.getElementById('login-form');
 if(loginForm) { 
     loginForm.addEventListener('submit', (e) => {
@@ -54,6 +99,7 @@ function trapFocus(element, event) {
     else { if (document.activeElement === lastElement) { firstElement.focus(); event.preventDefault(); } }
 }
 
+// 알림 모달
 const notiBtn = document.getElementById('noti-btn');
 const notiModal = document.getElementById('noti-modal');
 const closeBtn = document.getElementById('noti-close-btn');
@@ -73,6 +119,7 @@ if(notiBtn) notiBtn.addEventListener('click', openNoti);
 if(closeBtn) closeBtn.addEventListener('click', closeNoti);
 if(notiModal) notiModal.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeNoti(); return; } trapFocus(notiModal, e); });
 
+// 알림 상세 팝업
 const detailPopup = document.getElementById('detail-popup');
 const popupCloseBtn = document.getElementById('popup-close-btn');
 const notiItems = document.querySelectorAll('.noti-item');
@@ -104,7 +151,7 @@ if(popupCloseBtn) popupCloseBtn.addEventListener('click', closePopup);
 if(detailPopup) detailPopup.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closePopup(); return; } trapFocus(detailPopup, e); });
 window.addEventListener('click', (e) => { if (e.target === notiModal) closeNoti(); if (e.target === detailPopup) closePopup(); });
 
-// 롤링 배너 로직 (Null Error 완전 차단)
+// 롤링 배너 로직
 const carouselTrack = document.getElementById('carousel-track');
 const carouselItems = document.querySelectorAll('.carousel-item');
 const prevBtn = document.getElementById('carousel-prev');
@@ -139,20 +186,14 @@ if(carouselTrack && carouselItems.length > 0) {
     function pauseCarousel() { 
         clearInterval(slideInterval); 
         isPlaying = false; 
-        if(pauseBtn) {
-            pauseBtn.innerHTML = playIconSVG; 
-            pauseBtn.setAttribute('aria-label', '자동 재생 시작'); 
-        }
+        if(pauseBtn) { pauseBtn.innerHTML = playIconSVG; pauseBtn.setAttribute('aria-label', '자동 재생 시작'); }
         carouselTrack.setAttribute('aria-live', 'polite'); 
     }
     
     function playCarousel() { 
         slideInterval = setInterval(nextSlide, 3000); 
         isPlaying = true; 
-        if(pauseBtn) {
-            pauseBtn.innerHTML = pauseIconSVG; 
-            pauseBtn.setAttribute('aria-label', '자동 재생 정지'); 
-        }
+        if(pauseBtn) { pauseBtn.innerHTML = pauseIconSVG; pauseBtn.setAttribute('aria-label', '자동 재생 정지'); }
         carouselTrack.setAttribute('aria-live', 'off'); 
     }
 
@@ -164,5 +205,6 @@ if(carouselTrack && carouselItems.length > 0) {
     playCarousel();
 }
 
-// 🚧 수칙 4번: 배포 전 리마인드
-console.log('[Dev] 자바스크립트 Null 병합 처리 및 CSS 방어막 세팅 완료. console.log를 지워주세요.');
+// 🚧 수칙 4번 리마인드 🚧 
+// 배포 전 최종 테스트가 끝나면 아래의 console.log를 지워주세요!
+console.log('[Dev] KWCAG 상단 탭 구현 완료 및 기존 하단 탭 스크립트 분리 방어 완벽 적용. 배포 전 이 로그를 삭제하세요.');

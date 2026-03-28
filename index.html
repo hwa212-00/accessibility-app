@@ -32,30 +32,63 @@
     <main id="main-content" tabindex="-1">
         <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
             
+            <div class="kwcag-section">
+                <div role="tablist" aria-label="KWCAG 4대 원칙" class="kwcag-tablist">
+                    <button role="tab" aria-selected="true" aria-controls="panel-perceivable" id="tab-perceivable" class="kwcag-tab" tabindex="0">인식</button>
+                    <button role="tab" aria-selected="false" aria-controls="panel-operable" id="tab-operable" class="kwcag-tab" tabindex="-1">운용</button>
+                    <button role="tab" aria-selected="false" aria-controls="panel-understandable" id="tab-understandable" class="kwcag-tab" tabindex="-1">이해</button>
+                    <button role="tab" aria-selected="false" aria-controls="panel-robust" id="tab-robust" class="kwcag-tab" tabindex="-1">견고</button>
+                </div>
+                
+                <div id="panel-perceivable" role="tabpanel" aria-labelledby="tab-perceivable" class="kwcag-panel">
+                    <ul class="guideline-list">
+                        <li>1.1 대체 텍스트</li>
+                        <li>1.2 멀티미디어 대체 수단</li>
+                        <li>1.3 명료성</li>
+                    </ul>
+                </div>
+                <div id="panel-operable" role="tabpanel" aria-labelledby="tab-operable" class="kwcag-panel" hidden>
+                    <ul class="guideline-list">
+                        <li>2.1 입력장치 접근성</li>
+                        <li>2.2 충분한 시간 제공</li>
+                        <li>2.3 광과민성 발작 예방</li>
+                        <li>2.4 쉬운 내비게이션</li>
+                    </ul>
+                </div>
+                <div id="panel-understandable" role="tabpanel" aria-labelledby="tab-understandable" class="kwcag-panel" hidden>
+                    <ul class="guideline-list">
+                        <li>3.1 가독성</li>
+                        <li>3.2 예측 가능성</li>
+                        <li>3.3 콘텐츠의 논리성</li>
+                        <li>3.4 입력 도움</li>
+                    </ul>
+                </div>
+                <div id="panel-robust" role="tabpanel" aria-labelledby="tab-robust" class="kwcag-panel" hidden>
+                    <ul class="guideline-list">
+                        <li>4.1 문법 준수</li>
+                        <li>4.2 웹 애플리케이션 접근성</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="carousel-section" role="region" aria-roledescription="carousel" aria-label="웹 접근성 캠페인 배너">
                 <div class="carousel-inner" id="carousel-track" aria-live="off">
-                    
                     <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="1 / 5">
                         <img src="./Images/banner1.png" alt="[HWA 프로젝트] 모두를 위한 열린 접근성. 장애 유형에 관계없이 누구나 쉽게 이용할 수 있는 웹 서비스를 제공합니다.">
                     </div>
-
                     <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="2 / 5">
                         <img src="./Images/banner2.png" alt="[시각 접근성 지원] 화면 낭독기로 모든 정보를 들으세요. 스크린 리더를 통해 텍스트 및 이미지 설명을 음성으로 제공합니다.">
                     </div>
-
                     <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="3 / 5">
                         <img src="./Images/banner3.png" alt="[청각 장애인 서비스] 수어 통역으로 소통의 벽을 허물다. 수어 통역 영상과 자막을 통해 청각 장애인도 쉽게 정보를 이용할 수 있습니다.">
                     </div>
-
                     <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="4 / 5">
                         <img src="./Images/banner4.png" alt="[쉬운 언어 서비스] 복잡한 정보도 쉽게 이해하세요. 어려운 용어와 긴 문장을 누구나 이해하기 쉬운 언어로 변환하여 제공합니다.">
                     </div>
-
                     <div class="carousel-item" role="group" aria-roledescription="slide" aria-label="5 / 5">
                         <img src="./Images/banner5.png" alt="[키보드 접근성 지원] 키보드 하나로 어디든 자유롭게. 마우스 없이도 키보드만으로 모든 기능을 탐색하고 이용할 수 있습니다.">
                     </div>
                 </div>
-
                 <div class="carousel-controls">
                     <button class="control-btn" id="carousel-prev" aria-label="이전 슬라이드"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
                     <button class="control-btn" id="carousel-pause" aria-label="자동 재생 정지"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button>
@@ -97,38 +130,8 @@
         <button role="tab" aria-selected="false" aria-controls="settings" id="tab-settings" tabindex="-1" class="nav-btn"><svg class="icon-outline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#000"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 -3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><svg class="icon-filled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#000" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 -3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" fill="#eee" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="tab-label">설정</span></button>
     </div>
 
-    <div id="noti-modal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title">
-            <div class="modal-header">
-                <h2 id="noti-title" class="modal-title">알림</h2>
-                <button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
-            </div>
-            <div class="modal-body">
-                <ul class="noti-list">
-                    <li>
-                        <button class="noti-item unread" aria-haspopup="dialog">
-                            <span class="sr-only status-text">읽지 않음</span>
-                            <span class="red-dot" aria-hidden="true"></span>
-                            <div class="noti-content"><span class="noti-text">새로운 접근성 가이드가 업데이트 되었습니다.</span><span class="noti-time">방금 전</span></div>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="noti-item read" aria-haspopup="dialog">
-                            <span class="sr-only status-text">읽음</span>
-                            <div class="noti-content"><span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span><span class="noti-time">2026. 03. 27</span></div>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div id="detail-popup" class="popup-overlay" aria-hidden="true">
-        <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popup-title">
-            <h3 id="popup-title">알림 상세 내용</h3>
-            <p id="popup-desc">접근성 100% 모달 팝업 테스트입니다. 확인하셨으면 닫기 버튼을 눌러주세요.</p>
-            <button class="submit-btn" id="popup-close-btn">닫기</button>
-        </div>
-    </div>
+    <div id="noti-modal" class="modal-overlay" aria-hidden="true"><div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title"><div class="modal-header"><h2 id="noti-title" class="modal-title">알림</h2><button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button></div><div class="modal-body"><ul class="noti-list"><li><button class="noti-item unread" aria-haspopup="dialog"><span class="sr-only status-text">읽지 않음</span><span class="red-dot" aria-hidden="true"></span><div class="noti-content"><span class="noti-text">새로운 접근성 가이드가 업데이트 되었습니다.</span><span class="noti-time">방금 전</span></div></button></li><li><button class="noti-item read" aria-haspopup="dialog"><span class="sr-only status-text">읽음</span><div class="noti-content"><span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span><span class="noti-time">2026. 03. 27</span></div></button></li></ul></div></div></div>
+    <div id="detail-popup" class="popup-overlay" aria-hidden="true"><div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popup-title"><h3 id="popup-title">알림 상세 내용</h3><p id="popup-desc">접근성 100% 모달 팝업 테스트입니다. 확인하셨으면 닫기 버튼을 눌러주세요.</p><button class="submit-btn" id="popup-close-btn">닫기</button></div></div>
 
     <script src="app.js"></script>
 </body>

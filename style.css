@@ -17,22 +17,27 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* === [수정됨] 롤링 배너 가로 꽉 차게 변경 === */
-.carousel-section { 
-    position: relative; 
-    /* 부모의 안쪽 여백(좌우 20px씩 총 40px)을 무시하고 강제로 넓힙니다 */
-    width: calc(100% + 40px); 
-    margin-left: -20px; 
-    margin-bottom: 30px; 
-    overflow: hidden; 
-    /* 화면 끝에 닿으므로 둥근 모서리 제거 */
-    border-radius: 0; 
-    background-color: #f5f5f5; 
-}
+/* === [추가됨] KWCAG 상단 탭 및 2뎁스 패널 스타일 === */
+.kwcag-section { margin-bottom: 25px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background-color: #fff; }
+.kwcag-tablist { display: flex; width: 100%; border-bottom: 1px solid #ddd; background-color: #f8f9fa; }
+.kwcag-tab { flex: 1; padding: 12px 0; min-height: 48px; background: none; border: none; font-size: 15px; color: #666; cursor: pointer; text-align: center; border-bottom: 3px solid transparent; transition: all 0.2s; }
+/* 선택된 탭 시각적 구분 (대비 명확히) */
+.kwcag-tab[aria-selected="true"] { font-weight: bold; color: #0056b3; border-bottom: 3px solid #0056b3; background-color: #fff; }
+.kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -3px; background-color: rgba(0,86,179,0.1); }
+.kwcag-panel { padding: 15px; animation: fadeIn 0.3s ease-in-out; }
+.kwcag-panel[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+/* 2-depth 리스트 스타일 */
+.guideline-list { list-style: none; margin: 0; padding: 0; }
+.guideline-list li { padding: 12px 10px; font-size: 15px; color: #333; border-bottom: 1px dashed #eee; font-weight: 500; }
+.guideline-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.guideline-list li::before { content: "•"; color: #0056b3; font-weight: bold; margin-right: 8px; }
+
+/* 롤링 배너 가로 꽉 차게 */
+.carousel-section { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-bottom: 30px; overflow: hidden; border-radius: 0; background-color: #f5f5f5; }
 .carousel-inner { display: flex; transition: transform 0.4s ease-in-out; }
 .carousel-item { flex: 0 0 100%; padding: 0; position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .carousel-item img { width: 100%; height: 100%; object-fit: cover; display: block; color: #777; font-size: 13px; padding: 20px; text-align: center; }
-
 .carousel-controls { position: absolute; bottom: 15px; right: 15px; display: flex; gap: 8px; background-color: rgba(0, 0, 0, 0.4); padding: 5px; border-radius: 8px; }
 .control-btn { background: none; border: none; color: white; cursor: pointer; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 4px; }
 .control-btn svg { width: 20px; height: 20px; }
