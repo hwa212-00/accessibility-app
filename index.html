@@ -115,7 +115,7 @@
             </div>
             <div class="daily-tip">
                 <h3>오늘의 접근성 팁</h3>
-                <blockquote>"모든 의미 있는 이미지에는 반드시 알맞은 <strong>대체 텍스트(alt)</strong>를 제공해야 합니다."</blockquote>
+                <blockquote id="daily-tip-text">"모든 의미 있는 이미지에는 반드시 알맞은 대체 텍스트(alt)를 제공해야 합니다."</blockquote>
             </div>
         </section>
         
@@ -143,6 +143,7 @@
     <div id="noti-modal" class="modal-overlay" aria-hidden="true"><div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title"><div class="modal-header"><h2 id="noti-title" class="modal-title">알림</h2><button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button></div><div class="modal-body"><ul class="noti-list"><li><button class="noti-item unread" aria-haspopup="dialog"><span class="sr-only status-text">읽지 않음</span><span class="red-dot" aria-hidden="true"></span><div class="noti-content"><span class="noti-text">새 접근성 가이드 업데이트</span><span class="noti-time">방금 전</span></div></button></li><li><button class="noti-item read" aria-haspopup="dialog"><span class="sr-only status-text">읽음</span><div class="noti-content"><span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span><span class="noti-time">2026. 03. 27</span></div></button></li></ul></div></div></div>
     <div id="detail-popup" class="popup-overlay" aria-hidden="true"><div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popup-title"><h3 id="popup-title">알림 상세 내용</h3><p id="popup-desc">접근성 100% 팝업 테스트입니다.</p><button class="submit-btn" id="popup-close-btn">닫기</button></div></div>
 
+    <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

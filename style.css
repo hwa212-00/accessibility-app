@@ -17,12 +17,10 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* === [수정됨] KWCAG 상단 탭 글자색 완벽한 검정 및 굵기 조절 === */
 .kwcag-section { margin-bottom: 25px; position: relative; z-index: 10; }
 .kwcag-tablist { display: flex; width: 100%; background-color: #f0f0f5; border-radius: 12px; padding: 4px; }
 .kwcag-tab-wrapper { position: relative; flex: 1; display: flex; justify-content: center; }
 
-/* !important를 부여하여 어떠한 환경에서도 완전한 검정색이 나오도록 강제 적용 */
 .kwcag-tab { width: 100%; padding: 10px 0; min-height: 48px; background: transparent; border: none; font-size: 15px; color: #000 !important; cursor: pointer; text-align: center; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
 .kwcag-tab[aria-selected="true"] { font-weight: 800; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
@@ -44,7 +42,6 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .kwcag-link:hover { background-color: #f8f9fa; }
 .kwcag-link:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; background-color: #f0f4ff; }
 
-/* 롤링 배너 가로 꽉 차게 */
 .carousel-section { position: relative; width: calc(100% + 40px); margin-left: -20px; margin-bottom: 30px; overflow: hidden; border-radius: 0; background-color: #f5f5f5; z-index: 1;}
 .carousel-inner { display: flex; transition: transform 0.4s ease-in-out; }
 .carousel-item { flex: 0 0 100%; padding: 0; position: relative; aspect-ratio: 2 / 1; overflow: hidden; display: flex; align-items: center; justify-content: center; }

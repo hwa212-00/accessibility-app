@@ -1,4 +1,12 @@
-// 1. 공통 유틸리티 함수 설정 (중복 코드 제거)
+// 브라우저 기본 스크롤 복원 막기 및 페이지 진입 시 최상단 강제 고정
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+});
+
+// 1. 공통 유틸리티 함수 설정
 function setupTabKeyboardNav(listSelector, tabsSelector) {
     const tabList = document.querySelector(listSelector);
     const tabs = document.querySelectorAll(tabsSelector);
@@ -10,7 +18,7 @@ function setupTabKeyboardNav(listSelector, tabsSelector) {
             if (e.key === 'ArrowRight') focusIdx = (focusIdx + 1) % tabs.length;
             else if (e.key === 'ArrowLeft') focusIdx = (focusIdx - 1 + tabs.length) % tabs.length;
             tabs[focusIdx].setAttribute('tabindex', '0');
-            tabs[focusIdx].focus();
+            tabs[focusIdx].focus({ preventScroll: true }); 
         }
     });
 }
@@ -62,6 +70,9 @@ mainTabs.forEach((tab) => {
         targetTab.setAttribute('aria-selected', "true"); targetTab.setAttribute('tabindex', "0"); 
         const panel = document.getElementById(targetId);
         if(panel) panel.classList.add('active');
+
+        // 탭 전환 시 시각적 스크롤 무조건 최상단으로 초기화
+        window.scrollTo(0, 0); 
     });
 });
 
@@ -143,32 +154,29 @@ window.addEventListener('click', (e) => {
     if (e.target === detailPopup) handleModalToggle('detail-popup', null, 'popup-close-btn', false, lastFocusPopup); 
 });
 
-// === [수정됨] 5. 무한 루프 롤링 배너 로직 ===
+// 5. 무한 루프 롤링 배너 로직
 const carouselTrack = document.getElementById('carousel-track'), originalItems = document.querySelectorAll('.carousel-item'), prevBtn = document.getElementById('carousel-prev'), nextBtn = document.getElementById('carousel-next'), pauseBtn = document.getElementById('carousel-pause');
 
 if(carouselTrack && originalItems.length > 0) {
-    let currentSlide = 1; // 1번 진짜 이미지부터 시작
+    let currentSlide = 1; 
     let slideInterval;
     let isPlaying = true;
-    let isAnimating = false; // 광클릭 방어 변수
+    let isAnimating = false; 
     const totalOriginalSlides = originalItems.length;
 
-    // 1. 눈속임용 가짜 슬라이드 앞뒤로 복제
     const firstClone = originalItems[0].cloneNode(true);
     const lastClone = originalItems[totalOriginalSlides - 1].cloneNode(true);
 
-    // 스크린 리더 중복 낭독 차단 및 포커스 제외
     firstClone.setAttribute('aria-hidden', 'true');
     firstClone.querySelectorAll('button, a, input, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
     lastClone.setAttribute('aria-hidden', 'true');
     lastClone.querySelectorAll('button, a, input, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
 
-    // 복제된 노드를 DOM에 삽입
     carouselTrack.appendChild(firstClone);
     carouselTrack.insertBefore(lastClone, originalItems[0]);
 
-    const allSlides = document.querySelectorAll('.carousel-item'); // 이제 총 7장
-    carouselTrack.style.transform = `translateX(-100%)`; // 1번 위치로 세팅
+    const allSlides = document.querySelectorAll('.carousel-item'); 
+    carouselTrack.style.transform = `translateX(-100%)`; 
 
     const playIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
     const pauseIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
@@ -187,7 +195,7 @@ if(carouselTrack && originalItems.length > 0) {
     }
 
     function moveSlide(step) {
-        if (isAnimating) return; // 넘어가고 있을 때는 클릭 무시
+        if (isAnimating) return; 
         isAnimating = true;
         currentSlide += step;
         carouselTrack.style.transition = 'transform 0.4s ease-in-out';
@@ -195,17 +203,16 @@ if(carouselTrack && originalItems.length > 0) {
         updateSlideAria();
     }
 
-    // 눈속임 점프 로직 (애니메이션이 끝난 직후 몰래 제자리로 이동)
     carouselTrack.addEventListener('transitionend', () => {
         isAnimating = false;
         if (currentSlide === 0) {
             carouselTrack.style.transition = 'none';
-            currentSlide = totalOriginalSlides; // 5번으로 0초만에 점프
+            currentSlide = totalOriginalSlides; 
             carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
             updateSlideAria();
         } else if (currentSlide === totalOriginalSlides + 1) {
             carouselTrack.style.transition = 'none';
-            currentSlide = 1; // 1번으로 0초만에 점프
+            currentSlide = 1; 
             carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
             updateSlideAria();
         }
@@ -232,5 +239,18 @@ if(carouselTrack && originalItems.length > 0) {
     togglePlay();
 }
 
+// 6. 오늘의 팁 365 자동 렌더링 로직 (data.js 연동)
+const tipElement = document.getElementById('daily-tip-text');
+if (tipElement && typeof dailyTips !== 'undefined') {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), 0, 0); 
+    const diff = today - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay); 
+    
+    const tipIndex = (dayOfYear - 1) % dailyTips.length;
+    tipElement.textContent = `"${dailyTips[tipIndex]}"`;
+}
+
 // 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] 무한 롤링 루프 및 탭 글자색 강제 고정 완료. 배포 시 이 로그를 반드시 삭제하세요.');
+console.log('[Dev] data.js 연동 팁 셔플 자동화 및 스크롤 버그 픽스 완료. 배포 시 이 로그를 반드시 삭제하세요.');
