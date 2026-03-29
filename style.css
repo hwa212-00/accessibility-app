@@ -17,13 +17,14 @@ body { font-family: sans-serif; padding-bottom: 60px; }
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
-/* KWCAG 상단 탭: 글자색 검정 & 개별 드롭다운 위치 */
+/* === [수정됨] KWCAG 상단 탭 글자색 완벽한 검정 및 굵기 조절 === */
 .kwcag-section { margin-bottom: 25px; position: relative; z-index: 10; }
 .kwcag-tablist { display: flex; width: 100%; background-color: #f0f0f5; border-radius: 12px; padding: 4px; }
 .kwcag-tab-wrapper { position: relative; flex: 1; display: flex; justify-content: center; }
 
-.kwcag-tab { width: 100%; padding: 10px 0; min-height: 48px; background: transparent; border: none; font-size: 15px; color: #000; cursor: pointer; text-align: center; border-radius: 8px; transition: all 0.2s ease; font-weight: 500; }
-.kwcag-tab[aria-selected="true"] { font-weight: bold; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+/* !important를 부여하여 어떠한 환경에서도 완전한 검정색이 나오도록 강제 적용 */
+.kwcag-tab { width: 100%; padding: 10px 0; min-height: 48px; background: transparent; border: none; font-size: 15px; color: #000 !important; cursor: pointer; text-align: center; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
+.kwcag-tab[aria-selected="true"] { font-weight: 800; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
 
 .kwcag-panel { position: absolute; top: calc(100% + 8px); width: 230px; max-height: 250px; overflow-y: auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 50; padding: 8px; animation: popIn 0.2s ease-out; }

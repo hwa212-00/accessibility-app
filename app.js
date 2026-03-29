@@ -143,33 +143,94 @@ window.addEventListener('click', (e) => {
     if (e.target === detailPopup) handleModalToggle('detail-popup', null, 'popup-close-btn', false, lastFocusPopup); 
 });
 
-// 5. 자동 롤링 배너 로직
-const carouselTrack = document.getElementById('carousel-track'), carouselItems = document.querySelectorAll('.carousel-item'), prevBtn = document.getElementById('carousel-prev'), nextBtn = document.getElementById('carousel-next'), pauseBtn = document.getElementById('carousel-pause');
-if(carouselTrack && carouselItems.length > 0) {
-    let currentSlide = 0, slideInterval, isPlaying = true;
-    const totalSlides = carouselItems.length;
+// === [수정됨] 5. 무한 루프 롤링 배너 로직 ===
+const carouselTrack = document.getElementById('carousel-track'), originalItems = document.querySelectorAll('.carousel-item'), prevBtn = document.getElementById('carousel-prev'), nextBtn = document.getElementById('carousel-next'), pauseBtn = document.getElementById('carousel-pause');
+
+if(carouselTrack && originalItems.length > 0) {
+    let currentSlide = 1; // 1번 진짜 이미지부터 시작
+    let slideInterval;
+    let isPlaying = true;
+    let isAnimating = false; // 광클릭 방어 변수
+    const totalOriginalSlides = originalItems.length;
+
+    // 1. 눈속임용 가짜 슬라이드 앞뒤로 복제
+    const firstClone = originalItems[0].cloneNode(true);
+    const lastClone = originalItems[totalOriginalSlides - 1].cloneNode(true);
+
+    // 스크린 리더 중복 낭독 차단 및 포커스 제외
+    firstClone.setAttribute('aria-hidden', 'true');
+    firstClone.querySelectorAll('button, a, input, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+    lastClone.setAttribute('aria-hidden', 'true');
+    lastClone.querySelectorAll('button, a, input, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+
+    // 복제된 노드를 DOM에 삽입
+    carouselTrack.appendChild(firstClone);
+    carouselTrack.insertBefore(lastClone, originalItems[0]);
+
+    const allSlides = document.querySelectorAll('.carousel-item'); // 이제 총 7장
+    carouselTrack.style.transform = `translateX(-100%)`; // 1번 위치로 세팅
+
     const playIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
     const pauseIcon = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
 
-    function updateSlide() {
-        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-        carouselItems.forEach((slide, i) => {
+    function updateSlideAria() {
+        allSlides.forEach((slide, index) => {
             const focusable = slide.querySelectorAll('button, a, input, [tabindex]:not([tabindex="-1"])');
-            slide.setAttribute('aria-hidden', i === currentSlide ? 'false' : 'true');
-            focusable.forEach(el => el.setAttribute('tabindex', i === currentSlide ? '0' : '-1'));
+            if (index === currentSlide) {
+                slide.setAttribute('aria-hidden', 'false');
+                focusable.forEach(el => el.setAttribute('tabindex', '0'));
+            } else {
+                slide.setAttribute('aria-hidden', 'true');
+                focusable.forEach(el => el.setAttribute('tabindex', '-1'));
+            }
         });
     }
-    function moveSlide(step) { currentSlide = (currentSlide + step + totalSlides) % totalSlides; updateSlide(); }
+
+    function moveSlide(step) {
+        if (isAnimating) return; // 넘어가고 있을 때는 클릭 무시
+        isAnimating = true;
+        currentSlide += step;
+        carouselTrack.style.transition = 'transform 0.4s ease-in-out';
+        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        updateSlideAria();
+    }
+
+    // 눈속임 점프 로직 (애니메이션이 끝난 직후 몰래 제자리로 이동)
+    carouselTrack.addEventListener('transitionend', () => {
+        isAnimating = false;
+        if (currentSlide === 0) {
+            carouselTrack.style.transition = 'none';
+            currentSlide = totalOriginalSlides; // 5번으로 0초만에 점프
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateSlideAria();
+        } else if (currentSlide === totalOriginalSlides + 1) {
+            carouselTrack.style.transition = 'none';
+            currentSlide = 1; // 1번으로 0초만에 점프
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateSlideAria();
+        }
+    });
+
     function togglePlay(forcePause) {
-        if(forcePause || isPlaying) { clearInterval(slideInterval); isPlaying = false; pauseBtn.innerHTML = playIcon; pauseBtn.setAttribute('aria-label', '자동 재생 시작'); carouselTrack.setAttribute('aria-live', 'polite'); }
-        else { slideInterval = setInterval(() => moveSlide(1), 3000); isPlaying = true; pauseBtn.innerHTML = pauseIcon; pauseBtn.setAttribute('aria-label', '자동 재생 정지'); carouselTrack.setAttribute('aria-live', 'off'); }
+        if(forcePause || isPlaying) { 
+            clearInterval(slideInterval); isPlaying = false; 
+            pauseBtn.innerHTML = playIcon; pauseBtn.setAttribute('aria-label', '자동 재생 시작'); 
+            carouselTrack.setAttribute('aria-live', 'polite'); 
+        }
+        else { 
+            slideInterval = setInterval(() => moveSlide(1), 3000); isPlaying = true; 
+            pauseBtn.innerHTML = pauseIcon; pauseBtn.setAttribute('aria-label', '자동 재생 정지'); 
+            carouselTrack.setAttribute('aria-live', 'off'); 
+        }
     }
 
     if(nextBtn) nextBtn.addEventListener('click', () => { togglePlay(true); moveSlide(1); });
     if(prevBtn) prevBtn.addEventListener('click', () => { togglePlay(true); moveSlide(-1); });
     if(pauseBtn) pauseBtn.addEventListener('click', () => togglePlay());
-    updateSlide(); togglePlay();
+
+    updateSlideAria(); 
+    togglePlay();
 }
 
 // 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] 코드 리팩토링 및 2중 점검 완벽 적용 완료. 배포 시 이 로그를 반드시 삭제하세요.');
+console.log('[Dev] 무한 롤링 루프 및 탭 글자색 강제 고정 완료. 배포 시 이 로그를 반드시 삭제하세요.');
