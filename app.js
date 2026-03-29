@@ -139,9 +139,16 @@ notiItems.forEach(item => {
     item.addEventListener('click', (e) => {
         lastFocusPopup = e.currentTarget;
         if (lastFocusPopup.classList.contains('unread')) {
+            // 알림 리스트 내부 읽음 처리
             lastFocusPopup.classList.remove('unread'); lastFocusPopup.classList.add('read');
             const srText = lastFocusPopup.querySelector('.status-text'); if (srText) srText.textContent = '읽음';
             const redDot = lastFocusPopup.querySelector('.red-dot'); if (redDot) redDot.style.display = 'none';
+
+            // === [수정됨] 헤더 메인 버튼의 새 알림 뱃지 제거 및 스크린 리더 텍스트 변경 ===
+            const mainNotiBtn = document.getElementById('noti-btn');
+            const mainNotiDot = document.getElementById('header-noti-dot');
+            if (mainNotiDot) mainNotiDot.style.display = 'none';
+            if (mainNotiBtn) mainNotiBtn.setAttribute('aria-label', '알림');
         }
         handleModalToggle('detail-popup', null, 'popup-close-btn', true);
     });
@@ -253,4 +260,4 @@ if (tipElement && typeof dailyTips !== 'undefined') {
 }
 
 // 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] data.js 연동 팁 셔플 자동화 및 스크롤 버그 픽스 완료. 배포 시 이 로그를 반드시 삭제하세요.');
+console.log('[Dev] 새 알림 뱃지 UI 및 스크린 리더 낭독 동기화 완료. 배포 시 이 로그를 반드시 삭제하세요.');
