@@ -30,7 +30,7 @@ function changeMainTab(e) {
     if(panel) panel.classList.add('active');
 }
 
-// === KWCAG 상단 탭 아코디언 토글 & ESC 닫기 로직 ===
+// KWCAG 상단 탭 아코디언 토글 & ESC 닫기 로직
 const kwcagTabs = document.querySelectorAll('.kwcag-tab');
 kwcagTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
@@ -63,7 +63,7 @@ kwcagTabs.forEach(tab => {
     });
 });
 
-// ESC 키를 누르면 열려있는 2뎁스 모달을 닫는 방어 코드 (접근성 필수)
+// ESC 키를 누르면 열려있는 2뎁스 모달을 닫는 방어 코드
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         kwcagTabs.forEach(t => {
@@ -72,7 +72,7 @@ document.addEventListener('keydown', (e) => {
                 t.setAttribute('aria-selected', 'false');
                 const panel = document.getElementById(t.getAttribute('aria-controls'));
                 if (panel) panel.setAttribute('hidden', 'true');
-                t.focus(); // 닫힌 후 초점을 다시 탭으로 돌려보냄
+                t.focus(); 
             }
         });
     }
@@ -224,4 +224,4 @@ if(carouselTrack && carouselItems.length > 0) {
 }
 
 // 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] KWCAG 모달형 탭 설계 및 초점 이동(a 태그) 구현 완료. 반드시 배포 전 이 줄을 삭제하세요.');
+console.log('[Dev] KWCAG 13개 핵심 지침 롤백 완료. 작업 완료 후 이 콘솔 로그를 반드시 지워주세요.');
