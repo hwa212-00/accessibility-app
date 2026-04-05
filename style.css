@@ -119,32 +119,33 @@ input[aria-invalid="true"] { border-color: #d32f2f; outline-color: #d32f2f;}
 .custom-select-list button[aria-selected="true"] { background-color: #e6f0fa; color: #0056b3; font-weight: bold; }
 .custom-select-list button:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
 
-/* === [수정됨] 널리 스타일 카드형 리스트 및 반응형 CSS Grid 적용 === */
+/* 널리 스타일 카드형 리스트 및 반응형 CSS Grid 적용 */
 .card-list-container { 
     display: grid; 
-    grid-template-columns: 1fr; /* 모바일: 1줄에 1개 */
+    grid-template-columns: 1fr; 
     gap: 16px; 
     margin-bottom: 30px; 
 }
 @media screen and (min-width: 768px) {
     .card-list-container {
-        grid-template-columns: repeat(2, 1fr); /* PC/태블릿: 1줄에 2개 */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* === [수정됨] 카드 테두리(border) 진하게 변경 === */
 .category-card { 
     width: 100%; 
     min-height: 120px; 
     padding: 20px; 
     background-color: #fff; 
-    border: 1px solid #e0e0e0; 
+    border: 2px solid #b0b0b0; /* 명도 대비를 고려한 진한 테두리 */
     border-radius: 12px; 
     display: flex; 
     flex-direction: column; 
     align-items: flex-start; 
     cursor: pointer; 
     text-align: left; 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06); 
     transition: transform 0.1s, box-shadow 0.1s; 
 }
 .category-card:active { transform: scale(0.98); }

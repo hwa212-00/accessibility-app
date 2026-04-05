@@ -292,51 +292,64 @@ if (categoryBtn && categoryListbox) {
     });
 }
 
-// === [수정됨] 8. 카드 리스트 클릭 시 상세 페이지 전환 및 초점(Focus) 복귀 로직 ===
+// 8. 상세 페이지 뷰 관리
 const detailView = document.getElementById('category-detail-view');
 const detailBackBtn = document.getElementById('detail-back-btn');
 const detailTitle = document.getElementById('detail-title');
 const detailContentArea = document.getElementById('detail-content-area');
-let lastFocusCategoryCard = null; // 뒤로가기 시 초점을 돌려줄 변수
+let lastFocusCategoryCard = null;
 
 if (detailView && detailBackBtn) {
-    // 1) 카드 버튼 클릭 시 열기
-    categoryCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            lastFocusCategoryCard = e.currentTarget;
-            
-            // 카드 안에 숨겨둔 데이터와 제목을 뽑아와서 상세뷰에 주입
-            const titleText = card.querySelector('.card-title').textContent;
-            const hiddenData = card.querySelector('.card-hidden-data').innerHTML;
-            
-            detailTitle.textContent = titleText;
-            detailContentArea.innerHTML = hiddenData;
-            
-            // 화면 덮기 및 포커스 이동
-            detailView.removeAttribute('hidden');
-            detailView.setAttribute('aria-hidden', 'false');
-            detailBackBtn.focus(); // 핵심: 뒤로가기 버튼으로 즉시 초점 강제 이동
-        });
-    });
-
-    // 2) 닫기 공통 함수
     const closeDetailView = () => {
         detailView.setAttribute('hidden', 'true');
         detailView.setAttribute('aria-hidden', 'true');
-        detailContentArea.innerHTML = ''; // 내용 초기화 방어
-        
-        // 핵심: 닫힌 후 원래 눌렀던 카드로 초점 복귀
-        if (lastFocusCategoryCard) {
-            lastFocusCategoryCard.focus();
-        }
+        detailContentArea.innerHTML = '';
+        if (lastFocusCategoryCard) lastFocusCategoryCard.focus();
     };
 
-    // 3) 뒤로가기 버튼 이벤트
     detailBackBtn.addEventListener('click', closeDetailView);
 
-    // 4) 상세뷰 열린 상태에서 ESC 키 방어
     detailView.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeDetailView();
-        else trapFocus(detailView, e); // 상세뷰 밖으로 초점 이탈 금지
+        else trapFocus(detailView, e);
     });
 }
+
+// === [신규 추가] 9. 동적 날짜 및 조회수 로컬 스토리지 연동 로직 ===
+const todayDate = new Date();
+const formattedDate = `날짜 ${todayDate.getFullYear()}.${String(todayDate.getMonth() + 1).padStart(2, '0')}.${String(todayDate.getDate()).padStart(2, '0')}`;
+
+// 브라우저 캐시에 저장된 조회수 불러오기 (없으면 빈 객체)
+let savedViews = JSON.parse(localStorage.getItem('hwa_nuli_views')) || {};
+
+categoryCards.forEach(card => {
+    const cardId = card.getAttribute('data-id');
+    const dateEl = card.querySelector('.card-date');
+    const viewsEl = card.querySelector('.card-views');
+
+    // 1) 오늘 날짜 꽂아넣기
+    if (dateEl) dateEl.textContent = formattedDate;
+
+    // 2) 초기 조회수 0으로 방어 및 렌더링
+    if (!savedViews[cardId]) savedViews[cardId] = 0;
+    if (viewsEl) viewsEl.textContent = `조회 ${savedViews[cardId]}`;
+
+    // 3) 클릭 이벤트에 상세 뷰 열기와 함께 조회수 +1 로직 합치기
+    card.addEventListener('click', (e) => {
+        lastFocusCategoryCard = e.currentTarget;
+        
+        // --- 상세 뷰 렌더링 로직 ---
+        const titleText = card.querySelector('.card-title').textContent;
+        const hiddenData = card.querySelector('.card-hidden-data').innerHTML;
+        detailTitle.textContent = titleText;
+        detailContentArea.innerHTML = hiddenData;
+        detailView.removeAttribute('hidden');
+        detailView.setAttribute('aria-hidden', 'false');
+        detailBackBtn.focus();
+
+        // --- 조회수 카운팅 로직 ---
+        savedViews[cardId]++; // 조회수 1 증가
+        localStorage.setItem('hwa_nuli_views', JSON.stringify(savedViews)); // 스토리지에 즉시 덮어쓰기 저장
+        if (viewsEl) viewsEl.textContent = `조회 ${savedViews[cardId]}`; // 화면 숫자도 즉시 업데이트
+    });
+});
