@@ -32,7 +32,6 @@
 
     <main id="main-content" tabindex="-1">
         <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
-            
             <div class="kwcag-section">
                 <div role="tablist" aria-label="KWCAG 4대 원칙" class="kwcag-tablist">
                     <div class="kwcag-tab-wrapper" role="presentation">
@@ -120,7 +119,131 @@
             </div>
         </section>
         
-        <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0"><h2>카테고리 탭</h2></section>
+        <section id="category" role="tabpanel" aria-labelledby="tab-category" class="tab-content" tabindex="0">
+            <div class="category-header">
+                <h2>UI 컴포넌트 접근성 사전</h2>
+                <p>실무에서 자주 틀리는 사례를 확인해 보세요.</p>
+                
+                <div class="custom-select-wrapper">
+                    <button type="button" class="custom-select-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="category-listbox" id="category-filter-btn">
+                        <span id="selected-category-text">전체 보기</span>
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <ul id="category-listbox" class="custom-select-list" role="listbox" aria-labelledby="category-filter-btn" hidden>
+                        <li><button type="button" role="option" aria-selected="true" data-value="all">전체 보기</button></li>
+                        <li><button type="button" role="option" aria-selected="false" data-value="forms">폼 & 입력칸</button></li>
+                        <li><button type="button" role="option" aria-selected="false" data-value="modals">모달 & 팝업</button></li>
+                        <li><button type="button" role="option" aria-selected="false" data-value="buttons">버튼 & 아이콘</button></li>
+                        <li><button type="button" role="option" aria-selected="false" data-value="media">미디어</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-container" id="category-accordion">
+                <div class="accordion-item" data-category="forms">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-form-1">
+                        <span class="accordion-title">[폼 & 입력칸] 필수 입력 표시</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-form-1" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>빨간색 별표(*)만 그려놓고 끝냅니다. 색맹이나 스크린 리더 사용자는 시각적인 별표의 의미를 파악하기 어렵습니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>입력 필드에 aria-required="true" 속성을 넣거나, 시각적으로 숨겨진 텍스트(sr-only)로 "필수"라고 명확히 제공해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item" data-category="forms">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-form-2">
+                        <span class="accordion-title">[폼 & 입력칸] 플레이스홀더 단독 사용</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-form-2" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>라벨(&lt;label&gt;)을 생략하고 입력창 안의 회색 글씨(Placeholder)로만 설명을 대체합니다. 클릭 시 사라져 기억력에 의존해야 합니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>플레이스홀더는 보조 수단일 뿐입니다. 반드시 입력창 바깥에 1:1로 매칭되는 &lt;label&gt; 태그를 명시해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="modals">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-modal-1">
+                        <span class="accordion-title">[모달 & 팝업] 포커스 가두기 누락</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-modal-1" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>팝업이 떴는데 키보드 Tab 키를 누르면 초점이 팝업 뒤에 있는 가려진 본문으로 넘어갑니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>팝업이 열려있는 동안에는 절대로 초점이 팝업 밖으로 빠져나가지 못하게 내부에서 순환하도록(Trap Focus) 가둬야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="modals">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-modal-2">
+                        <span class="accordion-title">[모달 & 팝업] 닫기 버튼과 초점 복귀</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-modal-2" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>'닫기' 버튼이 이미지(X 모양)로만 되어있어 읽히지 않고, 팝업이 닫힌 후 초점이 페이지 맨 위로 초기화되어 버립니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>닫기 버튼은 "팝업 닫기"로 명확히 읽혀야 하며, 창이 닫히면 팝업을 열었던 원래 버튼으로 초점이 정확히 돌아가야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="buttons">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-btn-1">
+                        <span class="accordion-title">[버튼 & 아이콘] 이름 없는 아이콘</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-btn-1" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>돋보기, 햄버거 메뉴 아이콘만 넣고 설명을 생략합니다. 스크린 리더는 단순히 "버튼"이라고만 읽습니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>눈에 보이지 않더라도 aria-label="검색", aria-label="전체 메뉴" 등 명확한 이름표를 달아 기능을 설명해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="media">
+                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-media-1">
+                        <span class="accordion-title">[미디어] 장식용 이미지 처리</span>
+                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    </button>
+                    <div id="panel-media-1" class="accordion-panel" hidden>
+                        <div class="case-box bad-case">
+                            <span class="case-label">❌ 흔한 실수 (Bad)</span>
+                            <p>내용을 꾸미기 위한 단순 배경 선이나 꾸밈 아이콘에도 alt 텍스트를 달아 스크린 리더 낭독을 지루하게 방해합니다.</p>
+                        </div>
+                        <div class="case-box good-case">
+                            <span class="case-label">✅ 정답 가이드 (Good)</span>
+                            <p>정보 전달 목적이 없는 장식용 이미지는 alt="" (빈 값) 처리하여 스크린 리더가 조용히 건너뛰게 해야 합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="shorts" role="tabpanel" aria-labelledby="tab-shorts" class="tab-content" tabindex="0"><h2>쇼츠 탭</h2></section>
         <section id="search" role="tabpanel" aria-labelledby="tab-search" class="tab-content" tabindex="0"><h2>검색 탭</h2></section>
         <section id="settings" role="tabpanel" aria-labelledby="tab-settings" class="tab-content" tabindex="0">

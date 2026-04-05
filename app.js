@@ -144,7 +144,7 @@ notiItems.forEach(item => {
             const srText = lastFocusPopup.querySelector('.status-text'); if (srText) srText.textContent = '읽음';
             const redDot = lastFocusPopup.querySelector('.red-dot'); if (redDot) redDot.style.display = 'none';
 
-            // === [수정됨] 헤더 메인 버튼의 새 알림 뱃지 제거 및 스크린 리더 텍스트 변경 ===
+            // 헤더 메인 버튼의 새 알림 뱃지 제거 및 스크린 리더 텍스트 변경
             const mainNotiBtn = document.getElementById('noti-btn');
             const mainNotiDot = document.getElementById('header-noti-dot');
             if (mainNotiDot) mainNotiDot.style.display = 'none';
@@ -259,5 +259,97 @@ if (tipElement && typeof dailyTips !== 'undefined') {
     tipElement.textContent = `"${dailyTips[tipIndex]}"`;
 }
 
-// 🚧 [수칙 4번 리마인드] 🚧
-console.log('[Dev] 새 알림 뱃지 UI 및 스크린 리더 낭독 동기화 완료. 배포 시 이 로그를 반드시 삭제하세요.');
+// === [신규 추가] 7. 카테고리 탭: 커스텀 드롭다운 및 아코디언 필터링 로직 ===
+const categoryBtn = document.getElementById('category-filter-btn');
+const categoryListbox = document.getElementById('category-listbox');
+const categoryOptions = categoryListbox ? categoryListbox.querySelectorAll('[role="option"]') : [];
+const selectedText = document.getElementById('selected-category-text');
+const accordionItems = document.querySelectorAll('.accordion-item');
+
+if (categoryBtn && categoryListbox) {
+    // 드롭다운 열기/닫기
+    const toggleDropdown = (open) => {
+        if (open) {
+            categoryListbox.removeAttribute('hidden');
+            categoryBtn.setAttribute('aria-expanded', 'true');
+            // 열리면 현재 선택된 옵션으로 자동 포커스
+            const selectedOpt = Array.from(categoryOptions).find(opt => opt.getAttribute('aria-selected') === 'true') || categoryOptions[0];
+            selectedOpt.focus();
+        } else {
+            categoryListbox.setAttribute('hidden', 'true');
+            categoryBtn.setAttribute('aria-expanded', 'false');
+            categoryBtn.focus();
+        }
+    };
+
+    categoryBtn.addEventListener('click', () => {
+        const isExpanded = categoryBtn.getAttribute('aria-expanded') === 'true';
+        toggleDropdown(!isExpanded);
+    });
+
+    // 드롭다운 내부 키보드 방향키 조작
+    categoryListbox.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            toggleDropdown(false);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const focusableOptions = Array.from(categoryOptions);
+            const currentIndex = focusableOptions.indexOf(document.activeElement);
+            let nextIndex = currentIndex;
+
+            if (e.key === 'ArrowDown') nextIndex = (currentIndex + 1) % focusableOptions.length;
+            if (e.key === 'ArrowUp') nextIndex = (currentIndex - 1 + focusableOptions.length) % focusableOptions.length;
+            
+            focusableOptions[nextIndex].focus();
+        }
+    });
+
+    // 항목 클릭 시 필터링 실행
+    categoryOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            const value = e.currentTarget.getAttribute('data-value');
+            const text = e.currentTarget.textContent;
+            
+            // 옵션의 ARIA 선택 상태 변경
+            categoryOptions.forEach(opt => opt.setAttribute('aria-selected', 'false'));
+            e.currentTarget.setAttribute('aria-selected', 'true');
+            selectedText.textContent = text;
+            
+            // 해당 카테고리에 맞는 아코디언만 보여주기
+            accordionItems.forEach(item => {
+                if (value === 'all' || item.getAttribute('data-category') === value) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            toggleDropdown(false);
+        });
+    });
+
+    // 드롭다운 밖의 빈 화면을 누르면 자동으로 닫히는 방어 로직 (Click Outside)
+    document.addEventListener('click', (e) => {
+        if (!categoryBtn.contains(e.target) && !categoryListbox.contains(e.target)) {
+            if (categoryBtn.getAttribute('aria-expanded') === 'true') toggleDropdown(false);
+        }
+    });
+}
+
+// 아코디언 패널 열기/닫기 로직
+const accordionHeaders = document.querySelectorAll('.accordion-header');
+accordionHeaders.forEach(header => {
+    header.addEventListener('click', (e) => {
+        const isExpanded = header.getAttribute('aria-expanded') === 'true';
+        const panelId = header.getAttribute('aria-controls');
+        const panel = document.getElementById(panelId);
+        
+        if (isExpanded) {
+            header.setAttribute('aria-expanded', 'false');
+            if (panel) panel.setAttribute('hidden', 'true');
+        } else {
+            header.setAttribute('aria-expanded', 'true');
+            if (panel) panel.removeAttribute('hidden');
+        }
+    });
+});
