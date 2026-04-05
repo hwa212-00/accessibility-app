@@ -49,9 +49,8 @@ function handleModalToggle(modalId, triggerBtnId, closeBtnId, isOpen, prevFocusE
     }
 }
 
-// 2. 탭 기능 및 키보드 네비게이션 적용
+// 2. 탭 기능 및 키보드 네비게이션 적용 (하단 탭 바만 남김)
 setupTabKeyboardNav('.bottom-nav', '.bottom-nav [role="tab"]');
-setupTabKeyboardNav('.kwcag-tablist', '.kwcag-tab');
 
 const mainTabs = document.querySelectorAll('.bottom-nav [role="tab"]');
 mainTabs.forEach((tab) => {
@@ -74,6 +73,7 @@ mainTabs.forEach((tab) => {
     });
 });
 
+// === [수정됨] KWCAG 탭 아코디언 로직 (aria-selected, tabindex 제거) ===
 const kwcagTabs = document.querySelectorAll('.kwcag-tab');
 kwcagTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
@@ -81,17 +81,15 @@ kwcagTabs.forEach(tab => {
         const isExpanded = clickedTab.getAttribute('aria-expanded') === 'true';
         
         kwcagTabs.forEach(t => {
-            t.setAttribute('aria-selected', 'false'); t.setAttribute('aria-expanded', 'false'); t.setAttribute('tabindex', '-1');
+            t.setAttribute('aria-expanded', 'false');
             const p = document.getElementById(t.getAttribute('aria-controls'));
             if (p) p.setAttribute('hidden', 'true');
         });
         
         if (!isExpanded) {
-            clickedTab.setAttribute('aria-selected', 'true'); clickedTab.setAttribute('aria-expanded', 'true'); clickedTab.setAttribute('tabindex', '0');
+            clickedTab.setAttribute('aria-expanded', 'true');
             const p = document.getElementById(clickedTab.getAttribute('aria-controls'));
             if (p) p.removeAttribute('hidden');
-        } else {
-            clickedTab.setAttribute('tabindex', '0');
         }
     });
 });
@@ -100,7 +98,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         kwcagTabs.forEach(t => {
             if (t.getAttribute('aria-expanded') === 'true') {
-                t.setAttribute('aria-expanded', 'false'); t.setAttribute('aria-selected', 'false');
+                t.setAttribute('aria-expanded', 'false');
                 const p = document.getElementById(t.getAttribute('aria-controls'));
                 if (p) p.setAttribute('hidden', 'true');
                 t.focus(); 
@@ -126,9 +124,9 @@ if(loginForm) {
 // 4. 모달 및 팝업 이벤트 통제
 let lastFocusNoti, lastFocusPopup;
 const notiBtn = document.getElementById('noti-btn'), notiModal = document.getElementById('noti-modal'), closeBtn = document.getElementById('noti-close-btn');
-if(notiBtn) notiBtn.addEventListener('click', () => { lastFocusNoti = document.activeElement; handleModalToggle('noti-modal', 'noti-btn', 'noti-close-btn', true); });
-if(closeBtn) closeBtn.addEventListener('click', () => handleModalToggle('noti-modal', 'noti-btn', 'noti-close-btn', false, lastFocusNoti));
-if(notiModal) notiModal.addEventListener('keydown', (e) => { if (e.key === 'Escape') handleModalToggle('noti-modal', 'noti-btn', 'noti-close-btn', false, lastFocusNoti); else trapFocus(notiModal, e); });
+if(notiBtn) notiBtn.addEventListener('click', () => { lastFocusNoti = document.activeElement; handleModalToggle('noti-modal', null, 'noti-close-btn', true); });
+if(closeBtn) closeBtn.addEventListener('click', () => handleModalToggle('noti-modal', null, 'noti-close-btn', false, lastFocusNoti));
+if(notiModal) notiModal.addEventListener('keydown', (e) => { if (e.key === 'Escape') handleModalToggle('noti-modal', null, 'noti-close-btn', false, lastFocusNoti); else trapFocus(notiModal, e); });
 
 const detailPopup = document.getElementById('detail-popup'), popupCloseBtn = document.getElementById('popup-close-btn'), notiItems = document.querySelectorAll('.noti-item');
 notiItems.forEach(item => {
@@ -151,7 +149,7 @@ if(popupCloseBtn) popupCloseBtn.addEventListener('click', () => handleModalToggl
 if(detailPopup) detailPopup.addEventListener('keydown', (e) => { if (e.key === 'Escape') handleModalToggle('detail-popup', null, 'popup-close-btn', false, lastFocusPopup); else trapFocus(detailPopup, e); });
 
 window.addEventListener('click', (e) => { 
-    if (e.target === notiModal) handleModalToggle('noti-modal', 'noti-btn', 'noti-close-btn', false, lastFocusNoti); 
+    if (e.target === notiModal) handleModalToggle('noti-modal', null, 'noti-close-btn', false, lastFocusNoti); 
     if (e.target === detailPopup) handleModalToggle('detail-popup', null, 'popup-close-btn', false, lastFocusPopup); 
 });
 
@@ -235,7 +233,7 @@ if (tipElement && typeof dailyTips !== 'undefined') {
     const tipIndex = (dayOfYear - 1) % dailyTips.length; tipElement.textContent = `"${dailyTips[tipIndex]}"`;
 }
 
-// 7. 카테고리 탭: 커스텀 드롭다운 필터 (대상만 카드로 변경)
+// 7. 카테고리 탭: 커스텀 드롭다운 필터
 const categoryBtn = document.getElementById('category-filter-btn');
 const categoryListbox = document.getElementById('category-listbox');
 const categoryOptions = categoryListbox ? categoryListbox.querySelectorAll('[role="option"]') : [];
@@ -315,11 +313,10 @@ if (detailView && detailBackBtn) {
     });
 }
 
-// === [신규 추가] 9. 동적 날짜 및 조회수 로컬 스토리지 연동 로직 ===
+// 9. 동적 날짜 및 조회수 로컬 스토리지 연동 로직
 const todayDate = new Date();
 const formattedDate = `날짜 ${todayDate.getFullYear()}.${String(todayDate.getMonth() + 1).padStart(2, '0')}.${String(todayDate.getDate()).padStart(2, '0')}`;
 
-// 브라우저 캐시에 저장된 조회수 불러오기 (없으면 빈 객체)
 let savedViews = JSON.parse(localStorage.getItem('hwa_nuli_views')) || {};
 
 categoryCards.forEach(card => {
@@ -327,18 +324,14 @@ categoryCards.forEach(card => {
     const dateEl = card.querySelector('.card-date');
     const viewsEl = card.querySelector('.card-views');
 
-    // 1) 오늘 날짜 꽂아넣기
     if (dateEl) dateEl.textContent = formattedDate;
 
-    // 2) 초기 조회수 0으로 방어 및 렌더링
     if (!savedViews[cardId]) savedViews[cardId] = 0;
     if (viewsEl) viewsEl.textContent = `조회 ${savedViews[cardId]}`;
 
-    // 3) 클릭 이벤트에 상세 뷰 열기와 함께 조회수 +1 로직 합치기
     card.addEventListener('click', (e) => {
         lastFocusCategoryCard = e.currentTarget;
         
-        // --- 상세 뷰 렌더링 로직 ---
         const titleText = card.querySelector('.card-title').textContent;
         const hiddenData = card.querySelector('.card-hidden-data').innerHTML;
         detailTitle.textContent = titleText;
@@ -347,9 +340,8 @@ categoryCards.forEach(card => {
         detailView.setAttribute('aria-hidden', 'false');
         detailBackBtn.focus();
 
-        // --- 조회수 카운팅 로직 ---
-        savedViews[cardId]++; // 조회수 1 증가
-        localStorage.setItem('hwa_nuli_views', JSON.stringify(savedViews)); // 스토리지에 즉시 덮어쓰기 저장
-        if (viewsEl) viewsEl.textContent = `조회 ${savedViews[cardId]}`; // 화면 숫자도 즉시 업데이트
+        savedViews[cardId]++; 
+        localStorage.setItem('hwa_nuli_views', JSON.stringify(savedViews)); 
+        if (viewsEl) viewsEl.textContent = `조회 ${savedViews[cardId]}`; 
     });
 });

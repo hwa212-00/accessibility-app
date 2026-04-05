@@ -15,7 +15,7 @@
                 <a href="#home" class="logo" onclick="document.getElementById('tab-home').click(); return false;">HWA</a>
             </h1>
             <div class="header-utils">
-                <button class="icon-btn" id="noti-btn" aria-label="새 알림, 알림" aria-expanded="false" aria-haspopup="dialog">
+                <button class="icon-btn" id="noti-btn" aria-label="새 알림, 알림" aria-haspopup="dialog">
                     <span class="header-red-dot" aria-hidden="true" id="header-noti-dot"></span>
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -33,10 +33,10 @@
     <main id="main-content" tabindex="-1">
         <section id="home" role="tabpanel" aria-labelledby="tab-home" class="tab-content active" tabindex="0">
             <div class="kwcag-section">
-                <div role="tablist" aria-label="KWCAG 4대 원칙" class="kwcag-tablist">
-                    <div class="kwcag-tab-wrapper" role="presentation">
-                        <button role="tab" aria-selected="false" aria-expanded="false" aria-controls="panel-perceivable" id="tab-perceivable" class="kwcag-tab" tabindex="0">인식</button>
-                        <div id="panel-perceivable" role="tabpanel" aria-labelledby="tab-perceivable" class="kwcag-panel dropdown-left" hidden>
+                <div aria-label="KWCAG 4대 원칙" class="kwcag-tablist">
+                    <div class="kwcag-tab-wrapper">
+                        <button type="button" aria-expanded="false" aria-controls="panel-perceivable" id="tab-perceivable" class="kwcag-tab">인식</button>
+                        <div id="panel-perceivable" class="kwcag-panel dropdown-left" hidden>
                             <ul class="guideline-list">
                                 <li><a href="#" class="kwcag-link">1.1 대체 텍스트</a></li>
                                 <li><a href="#" class="kwcag-link">1.2 멀티미디어 대체 수단</a></li>
@@ -45,9 +45,9 @@
                         </div>
                     </div>
 
-                    <div class="kwcag-tab-wrapper" role="presentation">
-                        <button role="tab" aria-selected="false" aria-expanded="false" aria-controls="panel-operable" id="tab-operable" class="kwcag-tab" tabindex="-1">운용</button>
-                        <div id="panel-operable" role="tabpanel" aria-labelledby="tab-operable" class="kwcag-panel dropdown-center-left" hidden>
+                    <div class="kwcag-tab-wrapper">
+                        <button type="button" aria-expanded="false" aria-controls="panel-operable" id="tab-operable" class="kwcag-tab">운용</button>
+                        <div id="panel-operable" class="kwcag-panel dropdown-center-left" hidden>
                             <ul class="guideline-list">
                                 <li><a href="#" class="kwcag-link">2.1 입력장치 접근성</a></li>
                                 <li><a href="#" class="kwcag-link">2.2 충분한 시간 제공</a></li>
@@ -57,9 +57,9 @@
                         </div>
                     </div>
 
-                    <div class="kwcag-tab-wrapper" role="presentation">
-                        <button role="tab" aria-selected="false" aria-expanded="false" aria-controls="panel-understandable" id="tab-understandable" class="kwcag-tab" tabindex="-1">이해</button>
-                        <div id="panel-understandable" role="tabpanel" aria-labelledby="tab-understandable" class="kwcag-panel dropdown-center-right" hidden>
+                    <div class="kwcag-tab-wrapper">
+                        <button type="button" aria-expanded="false" aria-controls="panel-understandable" id="tab-understandable" class="kwcag-tab">이해</button>
+                        <div id="panel-understandable" class="kwcag-panel dropdown-center-right" hidden>
                             <ul class="guideline-list">
                                 <li><a href="#" class="kwcag-link">3.1 가독성</a></li>
                                 <li><a href="#" class="kwcag-link">3.2 예측 가능성</a></li>
@@ -69,9 +69,9 @@
                         </div>
                     </div>
 
-                    <div class="kwcag-tab-wrapper" role="presentation">
-                        <button role="tab" aria-selected="false" aria-expanded="false" aria-controls="panel-robust" id="tab-robust" class="kwcag-tab" tabindex="-1">견고</button>
-                        <div id="panel-robust" role="tabpanel" aria-labelledby="tab-robust" class="kwcag-panel dropdown-right" hidden>
+                    <div class="kwcag-tab-wrapper">
+                        <button type="button" aria-expanded="false" aria-controls="panel-robust" id="tab-robust" class="kwcag-tab">견고</button>
+                        <div id="panel-robust" class="kwcag-panel dropdown-right" hidden>
                             <ul class="guideline-list">
                                 <li><a href="#" class="kwcag-link">4.1 문법 준수</a></li>
                                 <li><a href="#" class="kwcag-link">4.2 웹 애플리케이션 접근성</a></li>
@@ -293,7 +293,7 @@
             <h2 id="detail-title" class="detail-title">상세 내용</h2>
         </div>
         <div class="detail-content" id="detail-content-area">
-            </div>
+        </div>
     </div>
 
     <script src="data.js"></script>

@@ -23,7 +23,8 @@ body { font-family: sans-serif; padding-bottom: 60px; background-color: #fafafa;
 .kwcag-tablist { display: flex; width: 100%; background-color: #f0f0f5; border-radius: 12px; padding: 4px; }
 .kwcag-tab-wrapper { position: relative; flex: 1; display: flex; justify-content: center; }
 .kwcag-tab { width: 100%; padding: 10px 0; min-height: 48px; background: transparent; border: none; font-size: 15px; color: #000 !important; cursor: pointer; text-align: center; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
-.kwcag-tab[aria-selected="true"] { font-weight: 800; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+/* === [수정됨] aria-selected 대신 aria-expanded 로 CSS 상태 변경 === */
+.kwcag-tab[aria-expanded="true"] { font-weight: 800; background-color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
 .kwcag-tab:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
 
 .kwcag-panel { position: absolute; top: calc(100% + 8px); width: 230px; max-height: 250px; overflow-y: auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); border: 1px solid #eee; z-index: 50; padding: 8px; animation: popIn 0.2s ease-out; }
@@ -132,13 +133,12 @@ input[aria-invalid="true"] { border-color: #d32f2f; outline-color: #d32f2f;}
     }
 }
 
-/* === [수정됨] 카드 테두리(border) 진하게 변경 === */
 .category-card { 
     width: 100%; 
     min-height: 120px; 
     padding: 20px; 
     background-color: #fff; 
-    border: 2px solid #b0b0b0; /* 명도 대비를 고려한 진한 테두리 */
+    border: 2px solid #b0b0b0;
     border-radius: 12px; 
     display: flex; 
     flex-direction: column; 
