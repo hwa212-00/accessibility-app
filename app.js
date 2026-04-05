@@ -53,7 +53,6 @@ function handleModalToggle(modalId, triggerBtnId, closeBtnId, isOpen, prevFocusE
 setupTabKeyboardNav('.bottom-nav', '.bottom-nav [role="tab"]');
 setupTabKeyboardNav('.kwcag-tablist', '.kwcag-tab');
 
-// 하단 메인 탭 로직
 const mainTabs = document.querySelectorAll('.bottom-nav [role="tab"]');
 mainTabs.forEach((tab) => {
     tab.addEventListener('click', (e) => {
@@ -71,12 +70,10 @@ mainTabs.forEach((tab) => {
         const panel = document.getElementById(targetId);
         if(panel) panel.classList.add('active');
 
-        // 탭 전환 시 시각적 스크롤 무조건 최상단으로 초기화
         window.scrollTo(0, 0); 
     });
 });
 
-// 상단 KWCAG 탭 아코디언 로직 및 ESC 방어 코드
 const kwcagTabs = document.querySelectorAll('.kwcag-tab');
 kwcagTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
@@ -93,7 +90,6 @@ kwcagTabs.forEach(tab => {
             clickedTab.setAttribute('aria-selected', 'true'); clickedTab.setAttribute('aria-expanded', 'true'); clickedTab.setAttribute('tabindex', '0');
             const p = document.getElementById(clickedTab.getAttribute('aria-controls'));
             if (p) p.removeAttribute('hidden');
-            else console.warn('[Dev Guard] 패널이 존재하지 않습니다.');
         } else {
             clickedTab.setAttribute('tabindex', '0');
         }
@@ -139,12 +135,10 @@ notiItems.forEach(item => {
     item.addEventListener('click', (e) => {
         lastFocusPopup = e.currentTarget;
         if (lastFocusPopup.classList.contains('unread')) {
-            // 알림 리스트 내부 읽음 처리
             lastFocusPopup.classList.remove('unread'); lastFocusPopup.classList.add('read');
             const srText = lastFocusPopup.querySelector('.status-text'); if (srText) srText.textContent = '읽음';
             const redDot = lastFocusPopup.querySelector('.red-dot'); if (redDot) redDot.style.display = 'none';
 
-            // 헤더 메인 버튼의 새 알림 뱃지 제거 및 스크린 리더 텍스트 변경
             const mainNotiBtn = document.getElementById('noti-btn');
             const mainNotiDot = document.getElementById('header-noti-dot');
             if (mainNotiDot) mainNotiDot.style.display = 'none';
@@ -165,10 +159,7 @@ window.addEventListener('click', (e) => {
 const carouselTrack = document.getElementById('carousel-track'), originalItems = document.querySelectorAll('.carousel-item'), prevBtn = document.getElementById('carousel-prev'), nextBtn = document.getElementById('carousel-next'), pauseBtn = document.getElementById('carousel-pause');
 
 if(carouselTrack && originalItems.length > 0) {
-    let currentSlide = 1; 
-    let slideInterval;
-    let isPlaying = true;
-    let isAnimating = false; 
+    let currentSlide = 1; let slideInterval; let isPlaying = true; let isAnimating = false; 
     const totalOriginalSlides = originalItems.length;
 
     const firstClone = originalItems[0].cloneNode(true);
@@ -192,19 +183,15 @@ if(carouselTrack && originalItems.length > 0) {
         allSlides.forEach((slide, index) => {
             const focusable = slide.querySelectorAll('button, a, input, [tabindex]:not([tabindex="-1"])');
             if (index === currentSlide) {
-                slide.setAttribute('aria-hidden', 'false');
-                focusable.forEach(el => el.setAttribute('tabindex', '0'));
+                slide.setAttribute('aria-hidden', 'false'); focusable.forEach(el => el.setAttribute('tabindex', '0'));
             } else {
-                slide.setAttribute('aria-hidden', 'true');
-                focusable.forEach(el => el.setAttribute('tabindex', '-1'));
+                slide.setAttribute('aria-hidden', 'true'); focusable.forEach(el => el.setAttribute('tabindex', '-1'));
             }
         });
     }
 
     function moveSlide(step) {
-        if (isAnimating) return; 
-        isAnimating = true;
-        currentSlide += step;
+        if (isAnimating) return; isAnimating = true; currentSlide += step;
         carouselTrack.style.transition = 'transform 0.4s ease-in-out';
         carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
         updateSlideAria();
@@ -213,15 +200,11 @@ if(carouselTrack && originalItems.length > 0) {
     carouselTrack.addEventListener('transitionend', () => {
         isAnimating = false;
         if (currentSlide === 0) {
-            carouselTrack.style.transition = 'none';
-            currentSlide = totalOriginalSlides; 
-            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-            updateSlideAria();
+            carouselTrack.style.transition = 'none'; currentSlide = totalOriginalSlides; 
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`; updateSlideAria();
         } else if (currentSlide === totalOriginalSlides + 1) {
-            carouselTrack.style.transition = 'none';
-            currentSlide = 1; 
-            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-            updateSlideAria();
+            carouselTrack.style.transition = 'none'; currentSlide = 1; 
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`; updateSlideAria();
         }
     });
 
@@ -230,8 +213,7 @@ if(carouselTrack && originalItems.length > 0) {
             clearInterval(slideInterval); isPlaying = false; 
             pauseBtn.innerHTML = playIcon; pauseBtn.setAttribute('aria-label', '자동 재생 시작'); 
             carouselTrack.setAttribute('aria-live', 'polite'); 
-        }
-        else { 
+        } else { 
             slideInterval = setInterval(() => moveSlide(1), 3000); isPlaying = true; 
             pauseBtn.innerHTML = pauseIcon; pauseBtn.setAttribute('aria-label', '자동 재생 정지'); 
             carouselTrack.setAttribute('aria-live', 'off'); 
@@ -242,37 +224,29 @@ if(carouselTrack && originalItems.length > 0) {
     if(prevBtn) prevBtn.addEventListener('click', () => { togglePlay(true); moveSlide(-1); });
     if(pauseBtn) pauseBtn.addEventListener('click', () => togglePlay());
 
-    updateSlideAria(); 
-    togglePlay();
+    updateSlideAria(); togglePlay();
 }
 
-// 6. 오늘의 팁 365 자동 렌더링 로직 (data.js 연동)
+// 6. 오늘의 팁 365
 const tipElement = document.getElementById('daily-tip-text');
 if (tipElement && typeof dailyTips !== 'undefined') {
-    const today = new Date();
-    const start = new Date(today.getFullYear(), 0, 0); 
-    const diff = today - start;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay); 
-    
-    const tipIndex = (dayOfYear - 1) % dailyTips.length;
-    tipElement.textContent = `"${dailyTips[tipIndex]}"`;
+    const today = new Date(); const start = new Date(today.getFullYear(), 0, 0); 
+    const diff = today - start; const oneDay = 1000 * 60 * 60 * 24; const dayOfYear = Math.floor(diff / oneDay); 
+    const tipIndex = (dayOfYear - 1) % dailyTips.length; tipElement.textContent = `"${dailyTips[tipIndex]}"`;
 }
 
-// === [신규 추가] 7. 카테고리 탭: 커스텀 드롭다운 및 아코디언 필터링 로직 ===
+// 7. 카테고리 탭: 커스텀 드롭다운 필터 (대상만 카드로 변경)
 const categoryBtn = document.getElementById('category-filter-btn');
 const categoryListbox = document.getElementById('category-listbox');
 const categoryOptions = categoryListbox ? categoryListbox.querySelectorAll('[role="option"]') : [];
 const selectedText = document.getElementById('selected-category-text');
-const accordionItems = document.querySelectorAll('.accordion-item');
+const categoryCards = document.querySelectorAll('.category-card');
 
 if (categoryBtn && categoryListbox) {
-    // 드롭다운 열기/닫기
     const toggleDropdown = (open) => {
         if (open) {
             categoryListbox.removeAttribute('hidden');
             categoryBtn.setAttribute('aria-expanded', 'true');
-            // 열리면 현재 선택된 옵션으로 자동 포커스
             const selectedOpt = Array.from(categoryOptions).find(opt => opt.getAttribute('aria-selected') === 'true') || categoryOptions[0];
             selectedOpt.focus();
         } else {
@@ -282,53 +256,35 @@ if (categoryBtn && categoryListbox) {
         }
     };
 
-    categoryBtn.addEventListener('click', () => {
-        const isExpanded = categoryBtn.getAttribute('aria-expanded') === 'true';
-        toggleDropdown(!isExpanded);
-    });
+    categoryBtn.addEventListener('click', () => { toggleDropdown(categoryBtn.getAttribute('aria-expanded') !== 'true'); });
 
-    // 드롭다운 내부 키보드 방향키 조작
     categoryListbox.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            toggleDropdown(false);
-        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (e.key === 'Escape') toggleDropdown(false);
+        else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
             e.preventDefault();
             const focusableOptions = Array.from(categoryOptions);
-            const currentIndex = focusableOptions.indexOf(document.activeElement);
-            let nextIndex = currentIndex;
-
-            if (e.key === 'ArrowDown') nextIndex = (currentIndex + 1) % focusableOptions.length;
-            if (e.key === 'ArrowUp') nextIndex = (currentIndex - 1 + focusableOptions.length) % focusableOptions.length;
-            
+            let nextIndex = focusableOptions.indexOf(document.activeElement);
+            if (e.key === 'ArrowDown') nextIndex = (nextIndex + 1) % focusableOptions.length;
+            if (e.key === 'ArrowUp') nextIndex = (nextIndex - 1 + focusableOptions.length) % focusableOptions.length;
             focusableOptions[nextIndex].focus();
         }
     });
 
-    // 항목 클릭 시 필터링 실행
     categoryOptions.forEach(option => {
         option.addEventListener('click', (e) => {
             const value = e.currentTarget.getAttribute('data-value');
-            const text = e.currentTarget.textContent;
-            
-            // 옵션의 ARIA 선택 상태 변경
             categoryOptions.forEach(opt => opt.setAttribute('aria-selected', 'false'));
             e.currentTarget.setAttribute('aria-selected', 'true');
-            selectedText.textContent = text;
+            selectedText.textContent = e.currentTarget.textContent;
             
-            // 해당 카테고리에 맞는 아코디언만 보여주기
-            accordionItems.forEach(item => {
-                if (value === 'all' || item.getAttribute('data-category') === value) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
+            categoryCards.forEach(card => {
+                if (value === 'all' || card.getAttribute('data-category') === value) card.style.display = 'flex';
+                else card.style.display = 'none';
             });
-
             toggleDropdown(false);
         });
     });
 
-    // 드롭다운 밖의 빈 화면을 누르면 자동으로 닫히는 방어 로직 (Click Outside)
     document.addEventListener('click', (e) => {
         if (!categoryBtn.contains(e.target) && !categoryListbox.contains(e.target)) {
             if (categoryBtn.getAttribute('aria-expanded') === 'true') toggleDropdown(false);
@@ -336,20 +292,51 @@ if (categoryBtn && categoryListbox) {
     });
 }
 
-// 아코디언 패널 열기/닫기 로직
-const accordionHeaders = document.querySelectorAll('.accordion-header');
-accordionHeaders.forEach(header => {
-    header.addEventListener('click', (e) => {
-        const isExpanded = header.getAttribute('aria-expanded') === 'true';
-        const panelId = header.getAttribute('aria-controls');
-        const panel = document.getElementById(panelId);
-        
-        if (isExpanded) {
-            header.setAttribute('aria-expanded', 'false');
-            if (panel) panel.setAttribute('hidden', 'true');
-        } else {
-            header.setAttribute('aria-expanded', 'true');
-            if (panel) panel.removeAttribute('hidden');
-        }
+// === [수정됨] 8. 카드 리스트 클릭 시 상세 페이지 전환 및 초점(Focus) 복귀 로직 ===
+const detailView = document.getElementById('category-detail-view');
+const detailBackBtn = document.getElementById('detail-back-btn');
+const detailTitle = document.getElementById('detail-title');
+const detailContentArea = document.getElementById('detail-content-area');
+let lastFocusCategoryCard = null; // 뒤로가기 시 초점을 돌려줄 변수
+
+if (detailView && detailBackBtn) {
+    // 1) 카드 버튼 클릭 시 열기
+    categoryCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            lastFocusCategoryCard = e.currentTarget;
+            
+            // 카드 안에 숨겨둔 데이터와 제목을 뽑아와서 상세뷰에 주입
+            const titleText = card.querySelector('.card-title').textContent;
+            const hiddenData = card.querySelector('.card-hidden-data').innerHTML;
+            
+            detailTitle.textContent = titleText;
+            detailContentArea.innerHTML = hiddenData;
+            
+            // 화면 덮기 및 포커스 이동
+            detailView.removeAttribute('hidden');
+            detailView.setAttribute('aria-hidden', 'false');
+            detailBackBtn.focus(); // 핵심: 뒤로가기 버튼으로 즉시 초점 강제 이동
+        });
     });
-});
+
+    // 2) 닫기 공통 함수
+    const closeDetailView = () => {
+        detailView.setAttribute('hidden', 'true');
+        detailView.setAttribute('aria-hidden', 'true');
+        detailContentArea.innerHTML = ''; // 내용 초기화 방어
+        
+        // 핵심: 닫힌 후 원래 눌렀던 카드로 초점 복귀
+        if (lastFocusCategoryCard) {
+            lastFocusCategoryCard.focus();
+        }
+    };
+
+    // 3) 뒤로가기 버튼 이벤트
+    detailBackBtn.addEventListener('click', closeDetailView);
+
+    // 4) 상세뷰 열린 상태에서 ESC 키 방어
+    detailView.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDetailView();
+        else trapFocus(detailView, e); // 상세뷰 밖으로 초점 이탈 금지
+    });
+}

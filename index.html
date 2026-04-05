@@ -109,7 +109,7 @@
             <div class="quick-links">
                 <h3>빠른 예제 이동</h3>
                 <div class="card-grid">
-                    <button class="quick-card" onclick="document.getElementById('tab-category').click()"><span class="card-title">카테고리 예제</span><span class="card-desc">팝업, 드롭다운 등</span></button>
+                    <button class="quick-card" onclick="document.getElementById('tab-category').click()"><span class="card-title">카테고리 예제</span><span class="card-desc">상세 페이지 전환</span></button>
                     <button class="quick-card" onclick="document.getElementById('tab-shorts').click()"><span class="card-title">쇼츠 접근성</span><span class="card-desc">스와이프 영상 피드</span></button>
                 </div>
             </div>
@@ -139,13 +139,13 @@
                 </div>
             </div>
 
-            <div class="accordion-container" id="category-accordion">
-                <div class="accordion-item" data-category="forms">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-form-1">
-                        <span class="accordion-title">[폼 & 입력칸] 필수 입력 표시</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-form-1" class="accordion-panel" hidden>
+            <div class="card-list-container" id="category-card-list">
+                <button class="category-card" data-category="forms" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[폼 & 입력칸] 필수 입력 표시</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>빨간색 별표(*)만 그려놓고 끝냅니다. 색맹이나 스크린 리더 사용자는 시각적인 별표의 의미를 파악하기 어렵습니다.</p>
@@ -155,14 +155,14 @@
                             <p>입력 필드에 aria-required="true" 속성을 넣거나, 시각적으로 숨겨진 텍스트(sr-only)로 "필수"라고 명확히 제공해야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
                 
-                <div class="accordion-item" data-category="forms">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-form-2">
-                        <span class="accordion-title">[폼 & 입력칸] 플레이스홀더 단독 사용</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-form-2" class="accordion-panel" hidden>
+                <button class="category-card" data-category="forms" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[폼 & 입력칸] 플레이스홀더 단독 사용</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>라벨(&lt;label&gt;)을 생략하고 입력창 안의 회색 글씨(Placeholder)로만 설명을 대체합니다. 클릭 시 사라져 기억력에 의존해야 합니다.</p>
@@ -172,14 +172,14 @@
                             <p>플레이스홀더는 보조 수단일 뿐입니다. 반드시 입력창 바깥에 1:1로 매칭되는 &lt;label&gt; 태그를 명시해야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
 
-                <div class="accordion-item" data-category="modals">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-modal-1">
-                        <span class="accordion-title">[모달 & 팝업] 포커스 가두기 누락</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-modal-1" class="accordion-panel" hidden>
+                <button class="category-card" data-category="modals" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[모달 & 팝업] 포커스 가두기 누락</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>팝업이 떴는데 키보드 Tab 키를 누르면 초점이 팝업 뒤에 있는 가려진 본문으로 넘어갑니다.</p>
@@ -189,14 +189,14 @@
                             <p>팝업이 열려있는 동안에는 절대로 초점이 팝업 밖으로 빠져나가지 못하게 내부에서 순환하도록(Trap Focus) 가둬야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
 
-                <div class="accordion-item" data-category="modals">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-modal-2">
-                        <span class="accordion-title">[모달 & 팝업] 닫기 버튼과 초점 복귀</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-modal-2" class="accordion-panel" hidden>
+                <button class="category-card" data-category="modals" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[모달 & 팝업] 닫기 버튼과 초점 복귀</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>'닫기' 버튼이 이미지(X 모양)로만 되어있어 읽히지 않고, 팝업이 닫힌 후 초점이 페이지 맨 위로 초기화되어 버립니다.</p>
@@ -206,14 +206,14 @@
                             <p>닫기 버튼은 "팝업 닫기"로 명확히 읽혀야 하며, 창이 닫히면 팝업을 열었던 원래 버튼으로 초점이 정확히 돌아가야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
 
-                <div class="accordion-item" data-category="buttons">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-btn-1">
-                        <span class="accordion-title">[버튼 & 아이콘] 이름 없는 아이콘</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-btn-1" class="accordion-panel" hidden>
+                <button class="category-card" data-category="buttons" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[버튼 & 아이콘] 이름 없는 아이콘</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>돋보기, 햄버거 메뉴 아이콘만 넣고 설명을 생략합니다. 스크린 리더는 단순히 "버튼"이라고만 읽습니다.</p>
@@ -223,14 +223,14 @@
                             <p>눈에 보이지 않더라도 aria-label="검색", aria-label="전체 메뉴" 등 명확한 이름표를 달아 기능을 설명해야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
 
-                <div class="accordion-item" data-category="media">
-                    <button class="accordion-header" aria-expanded="false" aria-controls="panel-media-1">
-                        <span class="accordion-title">[미디어] 장식용 이미지 처리</span>
-                        <svg class="accordion-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                    </button>
-                    <div id="panel-media-1" class="accordion-panel" hidden>
+                <button class="category-card" data-category="media" aria-haspopup="dialog">
+                    <div class="card-title-area">
+                        <span class="card-title">[미디어] 장식용 이미지 처리</span>
+                    </div>
+                    <svg class="card-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <div class="card-hidden-data" hidden>
                         <div class="case-box bad-case">
                             <span class="case-label">❌ 흔한 실수 (Bad)</span>
                             <p>내용을 꾸미기 위한 단순 배경 선이나 꾸밈 아이콘에도 alt 텍스트를 달아 스크린 리더 낭독을 지루하게 방해합니다.</p>
@@ -240,7 +240,7 @@
                             <p>정보 전달 목적이 없는 장식용 이미지는 alt="" (빈 값) 처리하여 스크린 리더가 조용히 건너뛰게 해야 합니다.</p>
                         </div>
                     </div>
-                </div>
+                </button>
             </div>
         </section>
 
@@ -266,6 +266,17 @@
 
     <div id="noti-modal" class="modal-overlay" aria-hidden="true"><div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="noti-title"><div class="modal-header"><h2 id="noti-title" class="modal-title">알림</h2><button class="close-btn" id="noti-close-btn" aria-label="알림창 닫기"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button></div><div class="modal-body"><ul class="noti-list"><li><button class="noti-item unread" aria-haspopup="dialog"><span class="sr-only status-text">읽지 않음</span><span class="red-dot" aria-hidden="true"></span><div class="noti-content"><span class="noti-text">새 접근성 가이드 업데이트</span><span class="noti-time">방금 전</span></div></button></li><li><button class="noti-item read" aria-haspopup="dialog"><span class="sr-only status-text">읽음</span><div class="noti-content"><span class="noti-text">환영합니다! HWA 앱 가입을 축하합니다.</span><span class="noti-time">2026. 03. 27</span></div></button></li></ul></div></div></div>
     <div id="detail-popup" class="popup-overlay" aria-hidden="true"><div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="popup-title"><h3 id="popup-title">알림 상세 내용</h3><p id="popup-desc">접근성 100% 팝업 테스트입니다.</p><button class="submit-btn" id="popup-close-btn">닫기</button></div></div>
+
+    <div id="category-detail-view" class="detail-view-overlay" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden>
+        <div class="detail-header">
+            <button id="detail-back-btn" class="back-btn" aria-label="목록으로 돌아가기">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <h2 id="detail-title" class="detail-title">상세 내용</h2>
+        </div>
+        <div class="detail-content" id="detail-content-area">
+            </div>
+    </div>
 
     <script src="data.js"></script>
     <script src="app.js"></script>
