@@ -1,5 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: sans-serif; padding-bottom: 60px; }
+body { font-family: sans-serif; padding-bottom: 60px; background-color: #fafafa; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
 
 .skip-nav { position: absolute; top: -60px; left: 0; width: 100%; text-align: center; background: #0056b3; color: #fff; padding: 15px; z-index: 999; text-decoration: none; font-weight: bold; transition: top 0.3s ease-in-out; }
@@ -119,16 +119,64 @@ input[aria-invalid="true"] { border-color: #d32f2f; outline-color: #d32f2f;}
 .custom-select-list button[aria-selected="true"] { background-color: #e6f0fa; color: #0056b3; font-weight: bold; }
 .custom-select-list button:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
 
-/* === [수정됨] 카드형 리스트 및 상세 페이지 뷰 스타일 === */
-.card-list-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
-.category-card { width: 100%; min-height: 60px; padding: 15px; background-color: #fff; border: 1px solid #ddd; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.1s, box-shadow 0.1s; }
+/* === [수정됨] 널리 스타일 카드형 리스트 및 반응형 CSS Grid 적용 === */
+.card-list-container { 
+    display: grid; 
+    grid-template-columns: 1fr; /* 모바일: 1줄에 1개 */
+    gap: 16px; 
+    margin-bottom: 30px; 
+}
+@media screen and (min-width: 768px) {
+    .card-list-container {
+        grid-template-columns: repeat(2, 1fr); /* PC/태블릿: 1줄에 2개 */
+    }
+}
+
+.category-card { 
+    width: 100%; 
+    min-height: 120px; 
+    padding: 20px; 
+    background-color: #fff; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 12px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    cursor: pointer; 
+    text-align: left; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+    transition: transform 0.1s, box-shadow 0.1s; 
+}
 .category-card:active { transform: scale(0.98); }
 .category-card:focus-visible { outline: 3px solid #0056b3; outline-offset: -2px; }
-.card-title-area { flex: 1; padding-right: 10px; }
-.card-title { font-size: 15px; font-weight: bold; color: #222; line-height: 1.4; }
-.card-icon { width: 20px; height: 20px; color: #666; flex-shrink: 0; }
 
-/* 상세 페이지 오버레이 (새 페이지처럼 보이게 덮기) */
+.card-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0056b3;
+    background-color: #e6f0fa;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.card-title { 
+    font-size: 16px; 
+    font-weight: 700; 
+    color: #111; 
+    line-height: 1.4; 
+    margin-bottom: 16px; 
+}
+
+.card-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: #777;
+}
+
+/* 상세 페이지 오버레이 */
 .detail-view-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #fff; z-index: 2000; display: flex; flex-direction: column; animation: slideInRight 0.3s ease forwards; }
 .detail-view-overlay[hidden] { display: none; animation: none; }
 @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
@@ -140,7 +188,6 @@ input[aria-invalid="true"] { border-color: #d32f2f; outline-color: #d32f2f;}
 .detail-title { font-size: 16px; font-weight: bold; color: #111; }
 .detail-content { padding: 20px; overflow-y: auto; flex: 1; }
 
-/* Bad & Good UI 박스 (상세 페이지 내부용) */
 .case-box { border-radius: 8px; padding: 15px; margin-bottom: 15px; }
 .case-box p { font-size: 14px; line-height: 1.5; color: #333; margin-top: 8px; }
 .case-label { font-size: 14px; font-weight: bold; }
