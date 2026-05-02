@@ -1,0 +1,168 @@
+:root {
+  /* Colors */
+  --bg-color: #000000;
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --accent-color: #FF0050; /* 틱톡 스타일 포인트 컬러 */
+  
+  /* Dimensions & Spacing */
+  --touch-target-size: 48px; /* 접근성 권장 최소 44px 이상 (Apple HIG / WCAG) */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  overflow: hidden; /* 스크롤은 컨테이너에서만 */
+  touch-action: none; /* 브라우저 기본 스와이프 제스처 방지 */
+}
+
+/* 스크린 리더용 숨김 클래스 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* 스와이프 메인 컨테이너 (CSS Scroll Snap 적용) */
+.shorts-container {
+  height: 100vh;
+  width: 100vw;
+  max-width: 480px; /* 데스크톱 환경에서는 모바일 뷰로 제한 */
+  margin: 0 auto;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  position: relative;
+}
+.shorts-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* 개별 쇼츠 아이템 */
+.short-item {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111;
+}
+
+/* 초점 스타일링 (고접근성) */
+.short-item:focus-visible {
+  outline: 4px solid var(--accent-color);
+  outline-offset: -4px;
+}
+
+/* 비디오 태그 */
+.short-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; /* 터치는 오버레이가 받음 */
+}
+
+/* 영상 위에 뜨는 UI 오버레이 */
+.short-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none; /* 오버레이 자체는 터치 무시 */
+}
+
+/* 텍스트 정보 */
+.short-info {
+  flex: 1;
+  pointer-events: auto;
+}
+
+.short-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.short-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* 우측 컨트롤 버튼 영역 */
+.short-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-left: var(--spacing-lg);
+  pointer-events: auto;
+}
+
+.control-btn {
+  width: var(--touch-target-size);
+  height: var(--touch-target-size);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.control-btn:active {
+  transform: scale(0.9);
+}
+
+.control-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 좋아요 활성화 상태 */
+.like-btn[aria-pressed="true"] {
+  color: var(--accent-color);
+}
