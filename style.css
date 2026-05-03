@@ -1,168 +1,130 @@
 :root {
-  /* Colors */
   --bg-color: #000000;
   --text-primary: #FFFFFF;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --accent-color: #FF0050; /* 틱톡 스타일 포인트 컬러 */
-  
-  /* Dimensions & Spacing */
-  --touch-target-size: 48px; /* 접근성 권장 최소 44px 이상 (Apple HIG / WCAG) */
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --accent-color: #FF0000; /* 유튜브 레드 느낌 */
+  --touch-target: 48px; /* KWCAG 44px 이상 권장사항 충족 */
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
-  overflow: hidden; /* 스크롤은 컨테이너에서만 */
-  touch-action: none; /* 브라우저 기본 스와이프 제스처 방지 */
-}
-
-/* 스크린 리더용 숨김 클래스 */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  touch-action: none;
 }
 
-/* 스와이프 메인 컨테이너 (CSS Scroll Snap 적용) */
-.shorts-container {
-  height: 100vh;
-  width: 100vw;
-  max-width: 480px; /* 데스크톱 환경에서는 모바일 뷰로 제한 */
-  margin: 0 auto;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  /* 스크롤바 숨기기 */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-  position: relative;
-}
-.shorts-container::-webkit-scrollbar {
-  display: none;
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-/* 개별 쇼츠 아이템 */
-.short-item {
-  height: 100vh;
-  width: 100%;
-  scroll-snap-align: start;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #111;
-}
-
-/* 초점 스타일링 (고접근성) */
-.short-item:focus-visible {
-  outline: 4px solid var(--accent-color);
-  outline-offset: -4px;
-}
-
-/* 비디오 태그 */
-.short-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none; /* 터치는 오버레이가 받음 */
-}
-
-/* 영상 위에 뜨는 UI 오버레이 */
-.short-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: var(--spacing-lg) var(--spacing-md);
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+/* Global Header */
+.global-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  padding: 0 var(--spacing-md);
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  pointer-events: none; /* 오버레이 자체는 터치 무시 */
+  align-items: center;
+  z-index: 100; /* 항상 최상단 */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none; /* 빈 공간 터치 통과 */
 }
-
-/* 텍스트 정보 */
-.short-info {
-  flex: 1;
-  pointer-events: auto;
-}
-
-.short-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-.short-desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-/* 우측 컨트롤 버튼 영역 */
-.short-controls {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  margin-left: var(--spacing-lg);
-  pointer-events: auto;
-}
+.header-title { font-size: 1.2rem; font-weight: 700; pointer-events: auto; }
+.header-actions { display: flex; gap: var(--spacing-sm); pointer-events: auto; }
 
 .control-btn {
-  width: var(--touch-target-size);
-  height: var(--touch-target-size);
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  border: none;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: var(--touch-target); height: var(--touch-target);
+  background: transparent; border: none; color: white;
+  display: flex; justify-content: center; align-items: center;
+  border-radius: 50%; cursor: pointer;
+}
+.control-btn svg { width: 28px; height: 28px; }
+.control-btn:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 2px; }
+
+/* Shorts Container */
+.shorts-container {
+  height: 100vh; width: 100vw; max-width: 480px; margin: 0 auto;
+  overflow-y: scroll; scroll-snap-type: y mandatory;
+  -ms-overflow-style: none; scrollbar-width: none; position: relative;
+}
+.shorts-container::-webkit-scrollbar { display: none; }
+
+/* Short Item */
+.short-item {
+  height: 100vh; width: 100%; scroll-snap-align: start;
+  position: relative;
+}
+.short-item:focus-visible { outline: 4px solid var(--accent-color); outline-offset: -4px; z-index: 10; }
+
+.short-video-placeholder {
+  width: 100%; height: 100%;
+  background-color: #000; /* 검은색 배경 */
+  pointer-events: none;
+}
+
+/* Overlay */
+.short-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  pointer-events: none;
+}
+
+/* Center Play Button */
+.center-controls {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+.center-play-btn {
+  width: 72px; height: 72px; border-radius: 50%;
+  background-color: rgba(0,0,0,0.4); border: none; color: white;
+  display: flex; justify-content: center; align-items: center;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+}
+.center-play-btn svg { width: 40px; height: 40px; }
+.center-play-btn:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 4px; }
+.hidden { display: none !important; }
+
+/* Bottom Area */
+.bottom-area {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
 }
 
-.control-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+/* Bottom Left */
+.bottom-left { flex: 1; pointer-events: auto; margin-right: var(--spacing-md); }
+.profile-area { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.profile-img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.username { font-weight: 600; font-size: 1rem; }
+.follow-btn {
+  background: var(--text-primary); color: var(--bg-color);
+  border: none; border-radius: 16px; font-weight: 700;
+  padding: 6px 14px; cursor: pointer; min-height: 36px;
 }
+.follow-btn[aria-pressed="true"] { background: rgba(255,255,255,0.2); color: white; }
+.follow-btn:focus-visible { outline: 3px solid var(--accent-color); }
+.short-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.short-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.4; }
 
-.control-btn:focus-visible {
-  outline: 3px solid var(--accent-color);
-  outline-offset: 2px;
+/* Bottom Right Actions */
+.bottom-right { display: flex; flex-direction: column; gap: 20px; pointer-events: auto; }
+.action-btn {
+  background: transparent; border: none; color: white;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; width: var(--touch-target); min-height: var(--touch-target);
 }
-
-.control-btn:active {
-  transform: scale(0.9);
-}
-
-.control-btn svg {
-  width: 24px;
-  height: 24px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* 좋아요 활성화 상태 */
-.like-btn[aria-pressed="true"] {
-  color: var(--accent-color);
-}
+.action-icon { width: 32px; height: 32px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6)); }
+.action-text { font-size: 0.8rem; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
+.action-btn:focus-visible { outline: 3px solid var(--accent-color); border-radius: 8px; }
+.like-btn[aria-pressed="true"] { color: var(--accent-color); }
