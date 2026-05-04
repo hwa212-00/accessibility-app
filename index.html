@@ -29,7 +29,45 @@
   </header>
 
   <main>
-    <div class="shorts-container" id="shorts-container" aria-label="쇼츠 동영상 목록" role="feed">
+    <!-- 홈 화면 -->
+    <section id="home-view" class="view-section" aria-label="홈 화면">
+      <div class="home-container">
+        <h2 class="home-title" tabindex="-1">추천 동영상</h2>
+        <div class="video-grid">
+          <!-- 더미 비디오 카드 1 -->
+          <article class="video-card" tabindex="0" role="link" aria-label="화려한 불꽃놀이와 축제, 조회수 1.2만회, 2일 전">
+            <div class="video-thumbnail" aria-hidden="true"></div>
+            <div class="video-info">
+              <h3 class="video-card-title">화려한 불꽃놀이와 축제</h3>
+              <p class="video-author">User_Name_01</p>
+              <p class="video-meta">조회수 1.2만회 • 2일 전</p>
+            </div>
+          </article>
+          <!-- 더미 비디오 카드 2 -->
+          <article class="video-card" tabindex="0" role="link" aria-label="기계 속의 코끼리 꿈, 조회수 8천회, 1주 전">
+            <div class="video-thumbnail" aria-hidden="true"></div>
+            <div class="video-info">
+              <h3 class="video-card-title">기계 속의 코끼리 꿈</h3>
+              <p class="video-author">Creator_ABC</p>
+              <p class="video-meta">조회수 8천회 • 1주 전</p>
+            </div>
+          </article>
+          <!-- 더미 비디오 카드 3 -->
+          <article class="video-card" tabindex="0" role="link" aria-label="빅 벅 바니 애니메이션, 조회수 5만회, 1개월 전">
+            <div class="video-thumbnail" aria-hidden="true"></div>
+            <div class="video-info">
+              <h3 class="video-card-title">빅 벅 바니 애니메이션</h3>
+              <p class="video-author">Blender</p>
+              <p class="video-meta">조회수 5만회 • 1개월 전</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 쇼츠 화면 -->
+    <section id="shorts-view" class="view-section hidden-view" aria-hidden="true">
+      <div class="shorts-container" id="shorts-container" aria-label="쇼츠 동영상 목록" role="feed">
       
       <!-- Video Item 1 -->
       <article class="short-item" tabindex="-1" aria-labelledby="title-1">
@@ -39,7 +77,7 @@
         <div class="short-overlay">
           <!-- 중앙: 재생/일시정지 버튼 -->
           <div class="center-controls">
-            <button class="center-play-btn play-pause-btn" aria-label="재생" aria-pressed="false">
+            <button class="center-play-btn play-pause-btn" aria-label="재생">
               <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               <svg class="icon-pause hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
             </button>
@@ -51,7 +89,7 @@
               <div class="profile-area">
                 <img src="https://via.placeholder.com/40/333333/FFFFFF?text=U1" alt="사용자1 프로필" class="profile-img">
                 <span class="username">User_Name_01</span>
-                <button class="follow-btn" aria-pressed="false" aria-label="팔로우">구독</button>
+                <button class="follow-btn" aria-pressed="false" aria-label="구독">구독</button>
               </div>
               <div class="content-area">
                 <h2 id="title-1" class="short-title">화려한 불꽃놀이와 축제</h2>
@@ -82,7 +120,7 @@
         <div class="short-video-placeholder" aria-hidden="true"></div>
         <div class="short-overlay">
           <div class="center-controls">
-            <button class="center-play-btn play-pause-btn" aria-label="재생" aria-pressed="false">
+            <button class="center-play-btn play-pause-btn" aria-label="재생">
               <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               <svg class="icon-pause hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
             </button>
@@ -92,7 +130,7 @@
               <div class="profile-area">
                 <img src="https://via.placeholder.com/40/333333/FFFFFF?text=U2" alt="사용자2 프로필" class="profile-img">
                 <span class="username">Creator_ABC</span>
-                <button class="follow-btn" aria-pressed="false" aria-label="팔로우">구독</button>
+                <button class="follow-btn" aria-pressed="false" aria-label="구독">구독</button>
               </div>
               <div class="content-area">
                 <h2 id="title-2" class="short-title">기계 속의 코끼리 꿈</h2>
@@ -117,7 +155,33 @@
       </article>
 
     </div>
+    </section>
   </main>
+  
+  <!-- 하단 네비게이션 바 -->
+  <nav class="global-bottom-nav" aria-label="하단 메뉴">
+    <button class="nav-btn active" aria-label="홈, 현재 선택됨" id="nav-home">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span class="nav-text" aria-hidden="true">홈</span>
+    </button>
+    <button class="nav-btn" aria-label="카테고리">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"/></svg>
+      <span class="nav-text" aria-hidden="true">카테고리</span>
+    </button>
+    <button class="nav-btn" aria-label="쇼츠" id="nav-shorts">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M18 7c0-.55-.45-1-1-1H7c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V7zm-7 8.5V8.5l5 3.5-5 3.5z"/></svg>
+      <span class="nav-text" aria-hidden="true">쇼츠</span>
+    </button>
+    <button class="nav-btn" aria-label="검색">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <span class="nav-text" aria-hidden="true">검색</span>
+    </button>
+    <button class="nav-btn" aria-label="마이">
+      <svg viewBox="0 0 24 24" fill="currentColor" class="nav-icon"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span class="nav-text" aria-hidden="true">마이</span>
+    </button>
+  </nav>
+
   <script defer src="./main.js"></script>
 </body>
 </html>

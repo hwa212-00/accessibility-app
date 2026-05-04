@@ -10,6 +10,7 @@ function init() {
   setupKeyboardNavigation();
   setupTouchNavigation();
   setupHeaderListeners();
+  setupTabNavigation();
   
   if(articles.length > 0) {
     articles[0].focus();
@@ -60,7 +61,7 @@ function setupButtonListeners() {
     const followBtn = article.querySelector('.follow-btn');
 
     playPauseBtn.addEventListener('click', () => {
-      const isPlaying = playPauseBtn.getAttribute('aria-pressed') === 'true';
+      const isPlaying = playPauseBtn.getAttribute('aria-label') === '일시정지';
       updatePlayPauseButton(article, !isPlaying);
       announceToScreenReader(!isPlaying ? "재생됨" : "일시정지됨");
     });
@@ -88,7 +89,6 @@ function updatePlayPauseButton(article, isPlaying) {
   const iconPlay = btn.querySelector('.icon-play');
   const iconPause = btn.querySelector('.icon-pause');
   
-  btn.setAttribute('aria-pressed', isPlaying);
   btn.setAttribute('aria-label', isPlaying ? '일시정지' : '재생');
   
   if(isPlaying) {
@@ -145,6 +145,50 @@ function scrollToIndex(index) {
   if (index >= 0 && index < articles.length) {
     articles[index].scrollIntoView({ behavior: 'smooth' });
   }
+}
+
+function setupTabNavigation() {
+  const btnHome = document.getElementById('nav-home');
+  const btnShorts = document.getElementById('nav-shorts');
+  const viewHome = document.getElementById('home-view');
+  const viewShorts = document.getElementById('shorts-view');
+  
+  function switchTab(target) {
+    if (target === 'home') {
+      viewHome.classList.remove('hidden-view');
+      viewHome.removeAttribute('aria-hidden');
+      viewShorts.classList.add('hidden-view');
+      viewShorts.setAttribute('aria-hidden', 'true');
+      
+      btnHome.classList.add('active');
+      btnHome.setAttribute('aria-label', '홈, 현재 선택됨');
+      btnShorts.classList.remove('active');
+      btnShorts.setAttribute('aria-label', '쇼츠');
+      
+      announceToScreenReader('홈 화면으로 이동했습니다.');
+      const homeTitle = viewHome.querySelector('.home-title');
+      if(homeTitle) homeTitle.focus();
+    } else if (target === 'shorts') {
+      viewShorts.classList.remove('hidden-view');
+      viewShorts.removeAttribute('aria-hidden');
+      viewHome.classList.add('hidden-view');
+      viewHome.setAttribute('aria-hidden', 'true');
+      
+      btnShorts.classList.add('active');
+      btnShorts.setAttribute('aria-label', '쇼츠, 현재 선택됨');
+      btnHome.classList.remove('active');
+      btnHome.setAttribute('aria-label', '홈');
+      
+      announceToScreenReader('쇼츠 화면으로 이동했습니다.');
+      if (articles.length > 0) {
+        articles[currentIndex].focus();
+        announceToScreenReader(`영상: ${articles[currentIndex].querySelector('.short-title').textContent}`);
+      }
+    }
+  }
+
+  if (btnHome) btnHome.addEventListener('click', () => switchTab('home'));
+  if (btnShorts) btnShorts.addEventListener('click', () => switchTab('shorts'));
 }
 
 init();

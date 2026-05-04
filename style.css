@@ -98,6 +98,7 @@ body {
   position: absolute; bottom: 0; left: 0; right: 0;
   display: flex; justify-content: space-between; align-items: flex-end;
   padding: var(--spacing-lg) var(--spacing-md);
+  padding-bottom: calc(60px + var(--spacing-lg)); /* 하단 네비게이션 공간 확보 */
   background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
   pointer-events: none;
 }
@@ -128,3 +129,103 @@ body {
 .action-text { font-size: 0.8rem; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
 .action-btn:focus-visible { outline: 3px solid var(--accent-color); border-radius: 8px; }
 .like-btn[aria-pressed="true"] { color: var(--accent-color); }
+
+/* Global Bottom Navigation */
+.global-bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nav-btn {
+  background: transparent; border: none; color: white;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 100%; height: 100%; justify-content: center;
+  cursor: pointer;
+}
+.nav-btn:focus-visible { outline: 3px solid var(--accent-color); outline-offset: -2px; }
+.nav-btn .nav-icon { width: 24px; height: 24px; }
+.nav-btn .nav-text { font-size: 0.7rem; }
+.nav-btn.active { font-weight: 700; color: var(--text-primary); }
+.nav-btn:not(.active) { color: var(--text-secondary); }
+
+/* SPA View Management */
+.view-section {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.hidden-view {
+  display: none !important;
+}
+
+/* Home View Styles */
+#home-view {
+  padding-top: 60px; /* Header space */
+  padding-bottom: 60px; /* Bottom nav space */
+  overflow-y: auto;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+#home-view::-webkit-scrollbar { display: none; }
+
+.home-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+.home-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+}
+
+.video-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  border-radius: 8px;
+}
+.video-card:focus-visible {
+  outline: 4px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+.video-thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #333;
+  border-radius: 8px;
+}
+
+.video-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 var(--spacing-sm);
+}
+
+.video-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.video-author, .video-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
